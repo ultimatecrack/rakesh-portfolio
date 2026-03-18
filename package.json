@@ -1,5 +1,6 @@
 {
-  "name": "tutorial",
+  "name": "portfolio-website",
+  "homepage": "https://ultimatecrack.github.io/rakesh-portfolio/",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +8,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
