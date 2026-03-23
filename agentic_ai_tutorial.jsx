@@ -39,8 +39,28 @@ Hinton, LeCun, Bengio's work in the 2000s–2010s. Convolutional Neural Networks
     visual: "limitations"
   },
   {
+    id: "deeplearning",
+    label: "02 — Deep Learning",
+    title: "Deep Learning Architectures",
+    subtitle: "ANN, CNN, RNN, LSTM & GRU — with parameter & dimension math",
+    icon: "⬡",
+    color: "#06b6d4",
+    content: "deeplearning",
+    visual: "deeplearning"
+  },
+  {
+    id: "training_essentials",
+    label: "03 — Training Essentials",
+    title: "Training Essentials",
+    subtitle: "Activations, optimisers, backprop, callbacks, GPU & distributed training",
+    icon: "⚡",
+    color: "#f59e0b",
+    content: "training_essentials",
+    visual: "training_essentials"
+  },
+  {
     id: "transformers",
-    label: "02 — Transformers",
+    label: "04 — Transformers",
     title: "Transformer Architecture",
     subtitle: "Attention is all you need — Vaswani et al., 2017",
     icon: "⬡",
@@ -50,7 +70,7 @@ Hinton, LeCun, Bengio's work in the 2000s–2010s. Convolutional Neural Networks
   },
   {
     id: "embeddings",
-    label: "03 — Embeddings",
+    label: "05 — Embeddings",
     title: "Embeddings & Semantic Space",
     subtitle: "How meaning becomes geometry",
     icon: "∷",
@@ -60,7 +80,7 @@ Hinton, LeCun, Bengio's work in the 2000s–2010s. Convolutional Neural Networks
   },
   {
     id: "gpt_bert",
-    label: "04 — GPT & BERT",
+    label: "06 — GPT & BERT",
     title: "GPT vs BERT",
     subtitle: "Autoregressive generation vs masked language modeling",
     icon: "⇌",
@@ -100,7 +120,7 @@ Kaplan et al. (2020): loss scales predictably as a power law with compute, param
   },
   {
     id: "finetuning",
-    label: "05 — Fine-tuning",
+    label: "07 — Fine-tuning",
     title: "Model Fine-tuning",
     subtitle: "Adapting foundation models for specific tasks",
     icon: "⚙",
@@ -110,7 +130,7 @@ Kaplan et al. (2020): loss scales predictably as a power law with compute, param
   },
   {
     id: "agentic",
-    label: "06 — Agentic AI",
+    label: "08 — Agentic AI",
     title: "Agentic AI Frameworks",
     subtitle: "LangChain, CrewAI, AutoGen & the agent paradigm",
     icon: "⬡",
@@ -188,7 +208,7 @@ Break complex tasks into a pipeline of simpler prompts, each feeding into the ne
   },
   {
     id: "llmops",
-    label: "07 — LLMOps",
+    label: "09 — LLMOps",
     title: "LLMOps",
     subtitle: "Production infrastructure for large language models",
     icon: "◉",
@@ -233,7 +253,7 @@ Collect production data → identify failure cases → curate fine-tuning datase
   },
   {
     id: "responsible",
-    label: "08 — Responsible AI",
+    label: "10 — Responsible AI",
     title: "Responsible AI",
     subtitle: "Safety, fairness, alignment & societal impact",
     icon: "◎",
@@ -276,7 +296,7 @@ High-risk AI systems face mandatory conformity assessments, transparency require
   },
   {
     id: "multimodal_intro",
-    label: "09 — Multimodal AI",
+    label: "11 — Multimodal AI",
     title: "Multimodal AI",
     subtitle: "Teaching models to see, hear, and reason across modalities",
     icon: "⬢",
@@ -322,7 +342,7 @@ Whisper (OpenAI) for speech to text. SeamlessM4T for speech translation. Gemini 
   },
   {
     id: "llava_paper",
-    label: "10 — LLaVA Deep Dive",
+    label: "12 — LLaVA Deep Dive",
     title: "LLaVA: Visual Instruction Tuning",
     subtitle: "Liu et al., 2023 — the paper that defined open-source VLMs",
     icon: "Ψ",
@@ -332,7 +352,7 @@ Whisper (OpenAI) for speech to text. SeamlessM4T for speech translation. Gemini 
   },
   {
     id: "phi2_minillava",
-    label: "11 — Mini-LLaVA with Phi-2",
+    label: "13 — Mini-LLaVA with Phi-2",
     title: "Building Mini-LLaVA with Phi-2",
     subtitle: "Apply LLaVA's recipe to Phi-2 2.7B — a trainable VLM on a single GPU",
     icon: "φ",
@@ -342,7 +362,7 @@ Whisper (OpenAI) for speech to text. SeamlessM4T for speech translation. Gemini 
   },
   {
     id: "moe",
-    label: "12 — Mixture of Experts",
+    label: "14 — Mixture of Experts",
     title: "Mixture of Experts (MoE)",
     subtitle: "Sparse conditional compute — scale parameters without scaling FLOPs",
     icon: "⋮",
@@ -352,7 +372,7 @@ Whisper (OpenAI) for speech to text. SeamlessM4T for speech translation. Gemini 
   },
   {
     id: "papers",
-    label: "13 — Papers",
+    label: "15 — Papers",
     title: "Essential Reading List",
     subtitle: "Foundational papers every AI practitioner should know",
     icon: "⊞",
@@ -362,7 +382,7 @@ Whisper (OpenAI) for speech to text. SeamlessM4T for speech translation. Gemini 
   },
   {
     id: "quiz",
-    label: "14 — Knowledge Test",
+    label: "16 — Knowledge Test",
     title: "Knowledge Assessment",
     subtitle: "Test your understanding with 14 questions",
     icon: "◆",
@@ -516,6 +536,8 @@ function ContentRenderer({ chapter }) {
   if (chapter.content === "llava") return null;
   if (chapter.content === "moe") return null;
   if (chapter.content === "finetuning") return null;
+  if (chapter.content === "deeplearning") return null;
+  if (chapter.content === "training_essentials") return null;
 
   const lines = chapter.content.trim().split("\n");
   const elements = [];
@@ -607,22 +629,1775 @@ function StepCard({ num, title, desc, color }) {
   );
 }
 
+function TrainingEssentialsView() {
+  const color = "#f59e0b";
+  const [activeTab, setActiveTab] = useState("activations");
+  const tabs = ["activations", "backprop", "optimisers", "regularisation", "gpu", "saving", "callbacks"];
+
+  const tabLabels = {
+    activations:    "Activations",
+    backprop:       "Backprop & GD",
+    optimisers:     "Optimisers",
+    regularisation: "Early Stop & Reg",
+    gpu:            "GPU & Distributed",
+    saving:         "Save & Load",
+    callbacks:      "Callbacks",
+  };
+
+  // ── ACTIVATION FUNCTIONS CODE ─────────────────────────────
+  const activationCode = `import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  ACTIVATION FUNCTIONS — what they do and when to use them
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+x = torch.randn(4)
+
+# ── Sigmoid: σ(x) = 1 / (1 + e^-x)  →  output ∈ (0, 1) ──
+# Use: binary classification output layer
+# Problem: saturates (gradient ≈ 0) for |x| > 3  → vanishing gradient
+sigmoid_out = torch.sigmoid(x)           # or nn.Sigmoid()
+
+# ── Tanh: (e^x - e^-x)/(e^x + e^-x)  →  output ∈ (-1, 1) ──
+# Use: RNN hidden states (zero-centred, better than sigmoid)
+# Problem: still saturates, just symmetric around 0
+tanh_out = torch.tanh(x)                 # or nn.Tanh()
+
+# ── ReLU: max(0, x)  →  output ∈ [0, ∞) ─────────────────
+# Use: DEFAULT for hidden layers in CNN and MLP
+# Benefit: no saturation for x > 0, cheap to compute
+# Problem: "dying ReLU" — neurons stuck at 0 if input always negative
+relu_out = F.relu(x)                     # or nn.ReLU()
+
+# ── Leaky ReLU: max(αx, x), α = 0.01 ────────────────────
+# Use: when dying ReLU is observed (negative inputs still get gradient)
+leaky_out = F.leaky_relu(x, negative_slope=0.01)   # or nn.LeakyReLU(0.01)
+
+# ── ELU: x if x>0, α(e^x - 1) if x≤0 ───────────────────
+# Use: alternative to ReLU; smooth negative region, zero-centred outputs
+elu_out = F.elu(x, alpha=1.0)            # or nn.ELU()
+
+# ── GELU: x·Φ(x)  (Gaussian Error Linear Unit) ───────────
+# Use: DEFAULT in Transformers (BERT, GPT), vision models
+# Benefit: smooth approximation of ReLU, probabilistic interpretation
+gelu_out = F.gelu(x)                     # or nn.GELU()
+
+# ── SiLU / Swish: x·σ(x) ─────────────────────────────────
+# Use: LLaMA, Mistral, modern architectures
+# Benefit: self-gated, smooth, often outperforms ReLU/GELU in deep nets
+silu_out = F.silu(x)                     # or nn.SiLU()
+
+# ── Softmax: e^xᵢ / Σe^xⱼ  →  probability distribution ──
+# Use: ONLY on the final output layer for multi-class classification
+# NEVER use in hidden layers — kills gradients, causes saturation
+# Use log_softmax + NLLLoss OR CrossEntropyLoss (numerically stable)
+softmax_out = F.softmax(x, dim=-1)
+
+# ── Practical rule of thumb ───────────────────────────────
+# Hidden layers:   ReLU (fast) → GELU (Transformers) → SiLU (LLMs)
+# Output (binary): Sigmoid
+# Output (multi):  Softmax (or CrossEntropyLoss which includes it)
+# Output (regress): Linear (no activation)`;
+
+  // ── BACKPROP & GRADIENT DESCENT CODE ─────────────────────
+  const backpropCode = `import torch
+import torch.nn as nn
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  BACKPROPAGATION — the chain rule applied recursively
+#
+#  Forward pass:  compute predictions and loss
+#  Backward pass: compute ∂L/∂W for every weight W via chain rule
+#
+#  Chain rule: ∂L/∂W = (∂L/∂output) × (∂output/∂W)
+#  For a deep net: ∂L/∂W₁ = ∂L/∂aₙ × ∂aₙ/∂aₙ₋₁ × ... × ∂a₂/∂W₁
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+model = nn.Linear(10, 1)
+optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+criterion = nn.MSELoss()
+
+x = torch.randn(32, 10)
+y = torch.randn(32, 1)
+
+# ── Step 1: Zero gradients (CRITICAL — PyTorch accumulates by default) ──
+optimizer.zero_grad()      # Resets .grad on all parameters to None/0
+
+# ── Step 2: Forward pass ──────────────────────────────────
+pred = model(x)            # Builds computation graph (autograd)
+loss = criterion(pred, y)  # Scalar loss — the quantity to minimise
+
+# ── Step 3: Backward pass (backprop) ─────────────────────
+loss.backward()            # Traverses graph backwards; fills .grad
+                           # Each param p now has p.grad = ∂loss/∂p
+
+# Inspect a gradient
+print(model.weight.grad.shape)  # torch.Size([1, 10])
+
+# ── Step 4: Gradient descent update ──────────────────────
+optimizer.step()           # W ← W - lr × ∂L/∂W  (SGD rule)
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  GRADIENT DESCENT VARIANTS
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Batch GD   — gradient over ENTIRE dataset each step. Slow, accurate.
+# Stochastic — gradient over ONE sample. Fast, very noisy.
+# Mini-batch — gradient over batch of B samples. Best of both worlds.
+#              This is what PyTorch DataLoader does by default.
+
+# ── Gradient clipping — prevents exploding gradients ─────
+torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+# Called AFTER loss.backward(), BEFORE optimizer.step()
+# Scales the gradient vector so its L2 norm ≤ max_norm
+# Critical for RNNs and Transformers on long sequences
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  LEARNING RATE SCHEDULES
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+
+# Step decay — halve LR every 10 epochs
+step_sched    = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.5)
+
+# Cosine annealing — smooth LR decay following cos curve
+cosine_sched  = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100)
+
+# Warmup + cosine (Transformers) — ramp up then decay
+warmup_sched  = torch.optim.lr_scheduler.OneCycleLR(
+    optimizer, max_lr=1e-3, steps_per_epoch=100, epochs=30
+)
+
+# ReduceLROnPlateau — reduce when val_loss stops improving
+plateau_sched = torch.optim.lr_scheduler.ReduceLROnPlateau(
+    optimizer, mode='min', factor=0.5, patience=5, verbose=True
+)
+
+# Call scheduler after each epoch:
+# step_sched.step()
+# plateau_sched.step(val_loss)   ← pass the monitored metric`;
+
+  // ── OPTIMISERS CODE ───────────────────────────────────────
+  const optimiserCode = `import torch
+import torch.nn as nn
+
+model = nn.Linear(128, 10)
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  SGD (Stochastic Gradient Descent)
+#  Update: W ← W − lr × ∂L/∂W
+#  + Momentum: accumulate velocity to dampen oscillations
+#  + Nesterov: look-ahead gradient for faster convergence
+#  Use: ResNets with careful LR tuning; competitive with Adam when tuned
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+sgd = torch.optim.SGD(
+    model.parameters(),
+    lr=0.01,
+    momentum=0.9,      # v ← 0.9v − lr×grad; W ← W + v
+    nesterov=True,     # Compute gradient at W + momentum×v
+    weight_decay=1e-4  # L2 regularisation: adds λ×W to gradient
+)
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  Adam (Adaptive Moment Estimation) — Kingma & Ba, 2014
+#  Tracks: m = β1×m + (1-β1)×grad       (1st moment — mean)
+#           v = β2×v + (1-β2)×grad²      (2nd moment — variance)
+#  Update: W ← W − lr × m̂ / (√v̂ + ε)
+#  Effect: each parameter gets its own adaptive learning rate.
+#          Large gradients → small step; rare gradients → large step.
+#  Use: DEFAULT for most deep learning. Fast, robust to hyperparams.
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+adam = torch.optim.Adam(
+    model.parameters(),
+    lr=1e-3,
+    betas=(0.9, 0.999),   # β1 (mean decay), β2 (variance decay)
+    eps=1e-8,             # Numerical stability
+    weight_decay=1e-4     # AdamW: decouple weight decay from gradient
+)
+
+# AdamW — decoupled weight decay (preferred over Adam for Transformers)
+adamw = torch.optim.AdamW(model.parameters(), lr=1e-4, weight_decay=0.01)
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  RMSprop — popular for RNNs
+#  Divides by running average of squared gradients.
+#  Prevents learning rate from growing too large on common features.
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+rmsprop = torch.optim.RMSprop(model.parameters(), lr=1e-3, alpha=0.99)
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  SUMMARY TABLE
+#  Optimiser    | Best for              | Typical LR
+#  ─────────────┼───────────────────────┼───────────
+#  SGD+momentum | ResNet, image models  | 0.01–0.1
+#  Adam         | General purpose       | 1e-3–1e-4
+#  AdamW        | Transformers, LLMs    | 1e-4–5e-5
+#  RMSprop      | RNNs, reinforcement   | 1e-3
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+
+  // ── EARLY STOPPING & REGULARISATION CODE ─────────────────
+  const regCode = `import torch
+import torch.nn as nn
+import numpy as np
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  EARLY STOPPING — manual implementation
+#  Monitor val_loss; stop when it hasn't improved for N epochs
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+class EarlyStopping:
+    def __init__(self, patience=7, min_delta=1e-4, restore_best=True):
+        self.patience     = patience      # Epochs to wait after last improvement
+        self.min_delta    = min_delta     # Minimum improvement to count
+        self.restore_best = restore_best  # Restore best weights on stop
+        self.counter      = 0
+        self.best_loss    = np.inf
+        self.best_weights = None
+        self.stop         = False
+
+    def __call__(self, val_loss, model):
+        if val_loss < self.best_loss - self.min_delta:
+            self.best_loss    = val_loss
+            self.counter      = 0
+            if self.restore_best:
+                import copy
+                self.best_weights = copy.deepcopy(model.state_dict())
+        else:
+            self.counter += 1
+            if self.counter >= self.patience:
+                self.stop = True
+                if self.restore_best and self.best_weights:
+                    model.load_state_dict(self.best_weights)
+                    print(f"Restored best weights (val_loss={self.best_loss:.4f})")
+
+# Usage:
+# early_stop = EarlyStopping(patience=7)
+# for epoch in range(max_epochs):
+#     val_loss = validate(model)
+#     early_stop(val_loss, model)
+#     if early_stop.stop:
+#         print("Early stopping triggered"); break
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  REGULARISATION TECHNIQUES
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# ── Dropout — randomly zeroes p fraction of neurons each forward pass ──
+# Acts as ensemble: each pass uses a different "thinned" sub-network
+# DISABLED at inference: model.eval() turns it off automatically
+dropout = nn.Dropout(p=0.5)         # p = probability of zeroing
+
+# ── BatchNorm — normalise activations within a mini-batch ─
+# Reduces internal covariate shift; allows higher learning rates
+# Has learnable scale (γ) and shift (β) per channel
+bn = nn.BatchNorm2d(num_features=64)
+
+# ── L1 Regularisation (Lasso) — promotes sparsity ────────
+# Adds λ × Σ|W| to loss. Pushes weights to exactly zero.
+def l1_reg(model, lam=1e-5):
+    return lam * sum(p.abs().sum() for p in model.parameters())
+
+# ── L2 Regularisation (Ridge / Weight Decay) ─────────────
+# Adds λ × Σ|W|² to loss. Penalises large weights without sparsity.
+# Equivalent to weight_decay in optimiser — prefer that approach.
+def l2_reg(model, lam=1e-4):
+    return lam * sum((p**2).sum() for p in model.parameters())
+
+# ── Label Smoothing — prevents overconfident predictions ─
+# Replaces hard 0/1 targets with ε-smoothed values
+criterion = nn.CrossEntropyLoss(label_smoothing=0.1)
+# Target 1.0 → 0.9;  Target 0.0 → 0.1/num_classes
+
+# ── Gradient Checkpointing — trade compute for memory ────
+# Re-computes intermediate activations during backward pass
+# instead of storing them. Cuts GPU memory by ~sqrt(layers).
+from torch.utils.checkpoint import checkpoint
+# Replace: output = layer(input)
+# With:    output = checkpoint(layer, input)`;
+
+  // ── GPU & DISTRIBUTED CODE ────────────────────────────────
+  const gpuCode = `import torch
+import torch.nn as nn
+from torch.utils.data import DataLoader
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  SINGLE GPU — the basics
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+device = torch.device("cuda" if torch.cuda.is_available() else
+                       "mps"  if torch.backends.mps.is_available() else
+                       "cpu")
+print(f"Using: {device}")
+if device.type == "cuda":
+    print(f"  GPU: {torch.cuda.get_device_name(0)}")
+    print(f"  VRAM: {torch.cuda.get_device_properties(0).total_memory/1e9:.1f} GB")
+
+model = nn.Linear(128, 10).to(device)   # Move model weights to GPU
+
+# Move tensors to device before passing to model
+x = torch.randn(32, 128).to(device)
+y = torch.randint(0, 10, (32,)).to(device)
+
+# ── Mixed precision (AMP) — ~2× speedup, ~50% memory saving ─
+# Uses float16 for compute, float32 for accumulation
+from torch.cuda.amp import autocast, GradScaler
+
+scaler = GradScaler()          # Scales loss to prevent fp16 underflow
+
+optimizer = torch.optim.Adam(model.parameters())
+criterion = nn.CrossEntropyLoss()
+
+with autocast():               # Casts ops to float16 automatically
+    out  = model(x)
+    loss = criterion(out, y)
+
+scaler.scale(loss).backward()  # Scaled backward pass
+scaler.step(optimizer)         # Unscale, check for infs/NaNs, then step
+scaler.update()                # Adjust scale factor for next iteration
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  MULTI-GPU: DataParallel (simple, single-machine)
+#  Wraps model; splits batch across GPUs; gathers outputs on GPU:0
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+if torch.cuda.device_count() > 1:
+    model = nn.DataParallel(model)          # Uses all available GPUs
+    # model = nn.DataParallel(model, device_ids=[0, 1])  # specific GPUs
+model = model.to(device)
+# Limitation: GPU:0 is a bottleneck (gathers gradients); uneven memory use
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  MULTI-GPU: DistributedDataParallel (production standard)
+#  Each GPU runs a full model copy; gradients averaged via all-reduce
+#  Launch with: torchrun --nproc_per_node=4 train.py
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+import os
+import torch.distributed as dist
+from torch.nn.parallel import DistributedDataParallel as DDP
+
+def setup_ddp():
+    dist.init_process_group(backend="nccl")   # NCCL = fastest for GPU
+    rank = dist.get_rank()
+    torch.cuda.set_device(rank)
+    return rank
+
+def cleanup_ddp():
+    dist.destroy_process_group()
+
+# In main training script:
+# rank = setup_ddp()
+# model = YourModel().to(rank)
+# model = DDP(model, device_ids=[rank])
+# sampler = DistributedSampler(dataset)   ← ensures each GPU sees different data
+# loader  = DataLoader(dataset, sampler=sampler, batch_size=32)
+# cleanup_ddp()
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  MULTI-NODE with Accelerate (HuggingFace — simplest API)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+from accelerate import Accelerator
+
+accelerator = Accelerator(mixed_precision="fp16")
+model, optimizer, loader = accelerator.prepare(model, optimizer, loader)
+
+for batch in loader:
+    with accelerator.autocast():
+        out  = model(batch["input"])
+        loss = criterion(out, batch["label"])
+    accelerator.backward(loss)   # Replaces loss.backward()
+    optimizer.step()
+    optimizer.zero_grad()
+# accelerate launch --num_processes=4 train.py`;
+
+  // ── MODEL SAVE / LOAD CODE ────────────────────────────────
+  const saveCode = `import torch
+import torch.nn as nn
+import os
+
+model = nn.Linear(128, 10)
+optimizer = torch.optim.Adam(model.parameters())
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  METHOD 1: state_dict (RECOMMENDED)
+#  Saves only parameters, not the class definition.
+#  Portable: load into same or re-built model.
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Save
+torch.save(model.state_dict(), "model_weights.pt")
+
+# Load — model architecture must be defined first
+model_loaded = nn.Linear(128, 10)
+model_loaded.load_state_dict(torch.load("model_weights.pt", weights_only=True))
+model_loaded.eval()          # Set to inference mode (disables Dropout, BN updates)
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  METHOD 2: Full checkpoint — saves training state too
+#  Use to resume interrupted training exactly where it left off.
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+def save_checkpoint(model, optimizer, epoch, val_loss, path):
+    torch.save({
+        "epoch":                epoch,
+        "model_state_dict":     model.state_dict(),
+        "optimizer_state_dict": optimizer.state_dict(),
+        "val_loss":             val_loss,
+        # Add: scheduler state, scaler state for AMP, config dict, etc.
+    }, path)
+    print(f"Checkpoint saved → {path}")
+
+def load_checkpoint(path, model, optimizer=None):
+    ckpt = torch.load(path, map_location="cpu", weights_only=False)
+    model.load_state_dict(ckpt["model_state_dict"])
+    if optimizer:
+        optimizer.load_state_dict(ckpt["optimizer_state_dict"])
+    return ckpt["epoch"], ckpt["val_loss"]
+
+# Usage:
+# save_checkpoint(model, optimizer, epoch=5, val_loss=0.312, path="ckpt_ep5.pt")
+# epoch, loss = load_checkpoint("ckpt_ep5.pt", model, optimizer)
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  METHOD 3: Best-checkpoint callback pattern
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+class ModelCheckpoint:
+    def __init__(self, save_dir, monitor="val_loss", mode="min",
+                 save_top_k=3, save_last=True):
+        self.save_dir  = save_dir
+        self.monitor   = monitor
+        self.mode      = mode        # "min" for loss, "max" for accuracy
+        self.save_top_k = save_top_k
+        self.save_last = save_last
+        self.scores    = []          # (metric_value, filepath)
+        os.makedirs(save_dir, exist_ok=True)
+
+    def __call__(self, model, optimizer, epoch, metrics):
+        metric_val = metrics[self.monitor]
+        path = os.path.join(self.save_dir, f"epoch_{epoch:03d}_{self.monitor}={metric_val:.4f}.pt")
+        save_checkpoint(model, optimizer, epoch, metric_val, path)
+
+        self.scores.append((metric_val, path))
+        # Sort: ascending for loss (min), descending for accuracy (max)
+        self.scores.sort(key=lambda t: t[0], reverse=(self.mode=="max"))
+
+        # Remove checkpoints beyond top-k
+        while len(self.scores) > self.save_top_k:
+            _, old_path = self.scores.pop()
+            if os.path.exists(old_path):
+                os.remove(old_path)
+
+        if self.save_last:
+            last_path = os.path.join(self.save_dir, "last.pt")
+            save_checkpoint(model, optimizer, epoch, metric_val, last_path)
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  HuggingFace / safetensors format (preferred for LLMs)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+from safetensors.torch import save_file, load_file
+
+tensors = {k: v.contiguous() for k, v in model.state_dict().items()}
+save_file(tensors, "model.safetensors")       # Faster, safer than pickle
+loaded  = load_file("model.safetensors")
+model.load_state_dict(loaded)`;
+
+  // ── CALLBACKS CODE ────────────────────────────────────────
+  const callbackCode = `import torch
+import time
+import wandb   # pip install wandb
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  CALLBACK SYSTEM — decouple training logic from side effects
+#  Each callback hooks into specific training lifecycle events.
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+class BaseCallback:
+    """Override only the events you need."""
+    def on_train_begin(self, logs=None):   pass   # Before first epoch
+    def on_train_end(self, logs=None):     pass   # After last epoch
+    def on_epoch_begin(self, epoch, logs=None): pass
+    def on_epoch_end(self, epoch, logs=None):   pass
+    def on_batch_begin(self, batch, logs=None): pass
+    def on_batch_end(self, batch, logs=None):   pass
+
+# ── 1. WandB Logger ──────────────────────────────────────
+class WandbLogger(BaseCallback):
+    def __init__(self, project, config=None):
+        wandb.init(project=project, config=config)
+    def on_epoch_end(self, epoch, logs=None):
+        if logs: wandb.log({"epoch": epoch, **logs})
+    def on_train_end(self, logs=None):
+        wandb.finish()
+
+# ── 2. Learning Rate Logger ───────────────────────────────
+class LRLogger(BaseCallback):
+    def __init__(self, optimizer):
+        self.optimizer = optimizer
+    def on_epoch_end(self, epoch, logs=None):
+        lr = self.optimizer.param_groups[0]["lr"]
+        print(f"  Epoch {epoch} | LR: {lr:.2e}")
+
+# ── 3. Progress / Timer ───────────────────────────────────
+class TimingCallback(BaseCallback):
+    def on_epoch_begin(self, epoch, logs=None):
+        self._start = time.time()
+    def on_epoch_end(self, epoch, logs=None):
+        elapsed = time.time() - self._start
+        print(f"  Epoch {epoch} completed in {elapsed:.1f}s")
+
+# ── 4. Gradient norm monitor ─────────────────────────────
+class GradientMonitor(BaseCallback):
+    def __init__(self, model, warn_threshold=10.0):
+        self.model = model
+        self.warn_threshold = warn_threshold
+    def on_batch_end(self, batch, logs=None):
+        total_norm = 0
+        for p in self.model.parameters():
+            if p.grad is not None:
+                total_norm += p.grad.detach().norm(2).item() ** 2
+        total_norm = total_norm ** 0.5
+        if total_norm > self.warn_threshold:
+            print(f"  ⚠ Large gradient norm: {total_norm:.2f} at batch {batch}")
+
+# ── 5. CSV Logger ─────────────────────────────────────────
+class CSVLogger(BaseCallback):
+    def __init__(self, filepath):
+        self.filepath = filepath
+        self._header_written = False
+    def on_epoch_end(self, epoch, logs=None):
+        if logs is None: return
+        import csv
+        with open(self.filepath, "a", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=["epoch"] + list(logs.keys()))
+            if not self._header_written:
+                writer.writeheader()
+                self._header_written = True
+            writer.writerow({"epoch": epoch, **logs})
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  TRAINING LOOP WITH FULL CALLBACK SUPPORT
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+class Trainer:
+    def __init__(self, model, optimizer, criterion, callbacks=None):
+        self.model      = model
+        self.optimizer  = optimizer
+        self.criterion  = criterion
+        self.callbacks  = callbacks or []
+
+    def _call(self, event, *args, **kwargs):
+        for cb in self.callbacks:
+            getattr(cb, event)(*args, **kwargs)
+
+    def fit(self, train_loader, val_loader, epochs=10):
+        self._call("on_train_begin")
+        for epoch in range(1, epochs + 1):
+            self._call("on_epoch_begin", epoch)
+
+            # ── Train ──
+            self.model.train()
+            train_loss = 0
+            for batch_idx, (x, y) in enumerate(train_loader):
+                self._call("on_batch_begin", batch_idx)
+                self.optimizer.zero_grad()
+                loss = self.criterion(self.model(x), y)
+                loss.backward()
+                self.optimizer.step()
+                train_loss += loss.item()
+                self._call("on_batch_end", batch_idx, {"loss": loss.item()})
+
+            # ── Validate ──
+            self.model.eval()
+            val_loss = 0
+            with torch.no_grad():
+                for x, y in val_loader:
+                    val_loss += self.criterion(self.model(x), y).item()
+
+            logs = {
+                "train_loss": train_loss / len(train_loader),
+                "val_loss":   val_loss   / len(val_loader),
+            }
+            self._call("on_epoch_end", epoch, logs)
+        self._call("on_train_end", logs)
+
+# ── Plug in callbacks ─────────────────────────────────────
+# trainer = Trainer(model, optimizer, criterion, callbacks=[
+#     TimingCallback(),
+#     LRLogger(optimizer),
+#     CSVLogger("training_log.csv"),
+#     GradientMonitor(model),
+#     EarlyStopping(patience=5),
+#     ModelCheckpoint("checkpoints/"),
+# ])
+# trainer.fit(train_loader, val_loader, epochs=50)`;
+
+  const activationData = [
+    { name:"Sigmoid",  formula:"1/(1+e⁻ˣ)",        range:"(0,1)",    gradient:"σ(1−σ) ≤ 0.25",  use:"Binary output",       problem:"Vanishing gradient" },
+    { name:"Tanh",     formula:"(eˣ−e⁻ˣ)/(eˣ+e⁻ˣ)",range:"(−1,1)",  gradient:"1−tanh²(x) ≤ 1", use:"RNN hidden states",   problem:"Saturates at extremes" },
+    { name:"ReLU",     formula:"max(0,x)",           range:"[0,∞)",    gradient:"0 or 1",          use:"CNN / MLP default",   problem:"Dying neurons (x<0)" },
+    { name:"Leaky ReLU",formula:"max(αx,x)",        range:"(−∞,∞)",   gradient:"α or 1",          use:"When dying ReLU seen",problem:"α is a hyperparameter" },
+    { name:"GELU",     formula:"x·Φ(x)",             range:"(−∞,∞)",   gradient:"Smooth",          use:"Transformers, BERT",  problem:"Slightly more compute" },
+    { name:"SiLU",     formula:"x·σ(x)",             range:"(−∞,∞)",   gradient:"Smooth, self-gated",use:"LLaMA, Mistral",   problem:"Slightly more compute" },
+    { name:"Softmax",  formula:"eˣⁱ/Σeˣʲ",          range:"(0,1)",    gradient:"sᵢ(1−sᵢ)",        use:"Multi-class output",  problem:"Never in hidden layers" },
+  ];
+
+  return (
+    <div>
+      {/* ── Tab bar ─────────────────────────────────────────── */}
+      <div style={{ display:"flex", gap:"6px", marginBottom:"24px", flexWrap:"wrap" }}>
+        {tabs.map(t => (
+          <button key={t} onClick={() => setActiveTab(t)} style={{
+            background: activeTab === t ? color : "rgba(255,255,255,0.04)",
+            color: activeTab === t ? "#0a0f1a" : "#64748b",
+            border: `1px solid ${activeTab === t ? color : "rgba(255,255,255,0.1)"}`,
+            borderRadius:"6px", padding:"6px 14px", fontSize:"0.72rem",
+            fontFamily:"'Space Mono',monospace", cursor:"pointer",
+            fontWeight:"700", letterSpacing:"0.05em", transition:"all 0.2s",
+            textTransform:"uppercase"
+          }}>{tabLabels[t]}</button>
+        ))}
+      </div>
+
+      {/* ══════════════════════════════════════════════════════
+          TAB: ACTIVATION FUNCTIONS
+      ══════════════════════════════════════════════════════ */}
+      {activeTab === "activations" && (
+        <div>
+          <InfoBox title="⚡ WHY ACTIVATION FUNCTIONS?" color={color}>
+            Without activations, stacking linear layers is mathematically equivalent to a <strong style={{color:"#e2e8f0"}}>single linear layer</strong> — no matter how deep. Activation functions introduce <strong style={{color:color}}>non-linearity</strong>, allowing the network to approximate arbitrary functions (Universal Approximation Theorem). The choice of activation directly affects gradient flow, training stability, and convergence speed.
+          </InfoBox>
+
+          <SectionHeading title="Activation Function Reference" color={color} />
+          <div style={{ overflowX:"auto" }}>
+            <table style={{ width:"100%", borderCollapse:"collapse", fontSize:"0.76rem", fontFamily:"'Space Mono',monospace" }}>
+              <thead>
+                <tr style={{ borderBottom:`1px solid ${color}30` }}>
+                  {["Function","Formula","Output range","Gradient","Best use","Known issue"].map(h => (
+                    <th key={h} style={{ textAlign:"left", padding:"8px 10px", color:color, fontSize:"0.64rem", letterSpacing:"0.06em", whiteSpace:"nowrap" }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {activationData.map((r,i) => (
+                  <tr key={i} style={{ borderBottom:"1px solid rgba(255,255,255,0.04)", background: i%2===0?"rgba(255,255,255,0.01)":"transparent" }}>
+                    <td style={{ padding:"7px 10px", color:color, fontWeight:"700", whiteSpace:"nowrap" }}>{r.name}</td>
+                    <td style={{ padding:"7px 10px", color:"#e2e8f0", fontSize:"0.72rem" }}>{r.formula}</td>
+                    <td style={{ padding:"7px 10px", color:"#a78bfa" }}>{r.range}</td>
+                    <td style={{ padding:"7px 10px", color:"#94a3b8", fontSize:"0.7rem" }}>{r.gradient}</td>
+                    <td style={{ padding:"7px 10px", color:"#34d399", fontSize:"0.7rem" }}>{r.use}</td>
+                    <td style={{ padding:"7px 10px", color:"#f87171", fontSize:"0.7rem" }}>{r.problem}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <SectionHeading title="Activation Functions — Code & Formulas" color={color} />
+          <CodeBlock code={activationCode} lang="python" color={color} />
+
+          <InfoBox title="📌 QUICK DECISION GUIDE" color={color}>
+            <strong style={{color:"#e2e8f0"}}>Hidden layers:</strong> Start with ReLU. Switch to GELU for Transformers or SiLU for LLaMA-style architectures.<br/><br/>
+            <strong style={{color:"#e2e8f0"}}>Output layer:</strong> Sigmoid for binary, Softmax for multi-class (or just use CrossEntropyLoss which folds it in), nothing for regression.<br/><br/>
+            <strong style={{color:"#e2e8f0"}}>RNN hidden state:</strong> Tanh (bounded, zero-centred — important for stability in the recurrent connection).
+          </InfoBox>
+        </div>
+      )}
+
+      {/* ══════════════════════════════════════════════════════
+          TAB: BACKPROP & GRADIENT DESCENT
+      ══════════════════════════════════════════════════════ */}
+      {activeTab === "backprop" && (
+        <div>
+          <InfoBox title="∂ BACKPROPAGATION IN ONE SENTENCE" color={color}>
+            Backprop is just the <strong style={{color:"#e2e8f0"}}>chain rule of calculus applied recursively</strong> from the loss backward through every layer — each layer receives the upstream gradient, multiplies by its local Jacobian, and passes the result downstream. PyTorch's autograd does this automatically by recording operations in a computation graph during the forward pass.
+          </InfoBox>
+
+          <SectionHeading title="Chain Rule — Step by Step" color={color} />
+          <div style={{ background:"rgba(0,0,0,0.4)", border:`1px solid ${color}30`, borderRadius:"8px", padding:"16px 18px", fontFamily:"'Space Mono',monospace", fontSize:"0.78rem", color:color, lineHeight:2 }}>
+            {"Forward:  x → [L1: z₁=W₁x+b₁, a₁=σ(z₁)] → [L2: z₂=W₂a₁+b₂, a₂=σ(z₂)] → Loss"}<br/>
+            {""}<br/>
+            {"Backward (chain rule):"}<br/>
+            {"  ∂L/∂W₂ = ∂L/∂a₂ · ∂a₂/∂z₂ · ∂z₂/∂W₂     ← output layer"}<br/>
+            {"  ∂L/∂W₁ = ∂L/∂a₂ · ∂a₂/∂z₂ · W₂ · ∂a₁/∂z₁ · ∂z₁/∂W₁  ← hidden"}<br/>
+            {""}<br/>
+            {"Vanishing gradient: if σ'(z) < 1 at every layer,"}<br/>
+            {"  ∂L/∂W₁ = tiny × tiny × tiny → ≈ 0 (nothing learned in early layers)"}
+          </div>
+
+          <SectionHeading title="Backprop, GD & LR Schedules — Code" color={color} />
+          <CodeBlock code={backpropCode} lang="python" color={color} />
+
+          <SectionHeading title="Learning Rate Schedule Comparison" color={color} />
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))", gap:"10px", marginBottom:"16px" }}>
+            {[
+              { name:"StepLR",          shape:"Staircase ▼",  use:"ResNets, standard CV tasks",       note:"Drops LR every N epochs by γ" },
+              { name:"CosineAnnealing", shape:"Smooth curve ⌒",use:"General purpose",                 note:"Smooth decay following cosine; no hard drops" },
+              { name:"OneCycleLR",      shape:"↑ then ↓",     use:"Transformers, fast training",      note:"Warmup to max LR then cosine decay" },
+              { name:"ReduceOnPlateau", shape:"Adaptive ↓",   use:"When val loss is unpredictable",   note:"Monitors metric; only decays when stuck" },
+            ].map((s,i) => (
+              <div key={i} style={{ background:"rgba(255,255,255,0.02)", border:`1px solid ${color}20`, borderRadius:"8px", padding:"12px" }}>
+                <div style={{ fontFamily:"'Space Mono',monospace", fontSize:"0.75rem", color:color, fontWeight:"700", marginBottom:"4px" }}>{s.name}</div>
+                <div style={{ fontFamily:"'Space Mono',monospace", fontSize:"0.7rem", color:"#a78bfa", marginBottom:"6px" }}>{s.shape}</div>
+                <div style={{ fontSize:"0.75rem", color:"#64748b", lineHeight:1.5 }}>{s.note}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ══════════════════════════════════════════════════════
+          TAB: OPTIMISERS
+      ══════════════════════════════════════════════════════ */}
+      {activeTab === "optimisers" && (
+        <div>
+          <InfoBox title="🔧 OPTIMISER INTUITION" color={color}>
+            All optimisers do the same thing: use gradients to update weights. The difference is <strong style={{color:"#e2e8f0"}}>how they use the gradient history</strong>. SGD uses raw gradients. Momentum adds inertia. Adam tracks per-parameter gradient statistics so rare parameters can take large steps while common parameters take small ones — like an automatic per-weight learning rate.
+          </InfoBox>
+
+          <SectionHeading title="Optimiser Code — SGD, Adam, AdamW, RMSprop" color={color} />
+          <CodeBlock code={optimiserCode} lang="python" color={color} />
+
+          <SectionHeading title="Optimiser Comparison" color={color} />
+          <div style={{ overflowX:"auto" }}>
+            <table style={{ width:"100%", borderCollapse:"collapse", fontSize:"0.79rem", fontFamily:"'Space Mono',monospace" }}>
+              <thead>
+                <tr style={{ borderBottom:`1px solid ${color}30` }}>
+                  {["Optimiser","State tracked","Adaptive LR","Best for","Typical LR"].map(h => (
+                    <th key={h} style={{ textAlign:"left", padding:"8px 10px", color:color, fontSize:"0.65rem", letterSpacing:"0.06em" }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["SGD",     "None (vanilla)",      "No",  "ResNet, ViT (carefully tuned)", "0.01–0.1"],
+                  ["SGD+Mom", "Velocity v",          "No",  "Image classifiers",             "0.01–0.1"],
+                  ["RMSprop", "E[g²] running avg",   "Yes", "RNNs, RL",                      "1e-3"],
+                  ["Adam",    "m (1st), v (2nd)",    "Yes", "General deep learning",         "1e-3–1e-4"],
+                  ["AdamW",   "m, v + decoupled WD", "Yes", "Transformers, LLMs",            "1e-4–5e-5"],
+                ].map((row,i) => (
+                  <tr key={i} style={{ borderBottom:"1px solid rgba(255,255,255,0.04)", background: i%2===0?"rgba(255,255,255,0.01)":"transparent" }}>
+                    <td style={{ padding:"8px 10px", color:color, fontWeight:"700" }}>{row[0]}</td>
+                    <td style={{ padding:"8px 10px", color:"#94a3b8" }}>{row[1]}</td>
+                    <td style={{ padding:"8px 10px", color: row[2]==="Yes"?"#34d399":"#f87171" }}>{row[2]}</td>
+                    <td style={{ padding:"8px 10px", color:"#e2e8f0" }}>{row[3]}</td>
+                    <td style={{ padding:"8px 10px", color:"#a78bfa", fontFamily:"'Space Mono',monospace" }}>{row[4]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* ══════════════════════════════════════════════════════
+          TAB: EARLY STOPPING & REGULARISATION
+      ══════════════════════════════════════════════════════ */}
+      {activeTab === "regularisation" && (
+        <div>
+          <InfoBox title="🛑 OVERFITTING — THE CORE PROBLEM" color={color}>
+            A model overfits when it <strong style={{color:"#e2e8f0"}}>memorises training data</strong> instead of learning generalisable patterns — train loss falls but val loss plateaus or rises (the "generalisation gap"). Regularisation techniques penalise complexity, inject noise, or stop training before the model has time to memorise.
+          </InfoBox>
+
+          <SectionHeading title="Early Stopping, Dropout & Regularisation — Code" color={color} />
+          <CodeBlock code={regCode} lang="python" color={color} />
+
+          <SectionHeading title="Regularisation Techniques at a Glance" color={color} />
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(220px,1fr))", gap:"10px", marginBottom:"20px" }}>
+            {[
+              { name:"Early Stopping",      effect:"Halt before memorisation",     cost:"Requires val set",         when:"Always" },
+              { name:"Dropout (p=0.1–0.5)", effect:"Ensemble of thinned networks", cost:"Slows convergence",        when:"Dense layers, RNNs" },
+              { name:"L2 / Weight Decay",   effect:"Shrinks large weights",        cost:"One extra hyperparameter", when:"Default for most models" },
+              { name:"L1 Regularisation",   effect:"Sparsifies weights",           cost:"Non-smooth, harder opt.",  when:"Feature selection tasks" },
+              { name:"BatchNorm",           effect:"Stabilises activations",       cost:"Memory + compute",         when:"CNN, MLP (not Transformers)" },
+              { name:"Label Smoothing",     effect:"Reduces overconfidence",       cost:"Tiny accuracy trade-off",  when:"Classification output" },
+              { name:"Data Augmentation",   effect:"Effectively more data",        cost:"Domain-specific design",   when:"Images, audio" },
+              { name:"Grad Checkpointing",  effect:"Cuts memory usage",            cost:"~33% extra compute",       when:"Very deep / large models" },
+            ].map((c,i) => (
+              <div key={i} style={{ background:"rgba(255,255,255,0.02)", border:`1px solid ${color}15`, borderRadius:"8px", padding:"12px" }}>
+                <div style={{ fontFamily:"'Space Mono',monospace", fontSize:"0.74rem", color:color, fontWeight:"700", marginBottom:"6px" }}>{c.name}</div>
+                <div style={{ fontSize:"0.75rem", color:"#e2e8f0", marginBottom:"4px" }}>✓ {c.effect}</div>
+                <div style={{ fontSize:"0.72rem", color:"#f87171", marginBottom:"4px" }}>⚠ {c.cost}</div>
+                <div style={{ fontSize:"0.70rem", color:"#475569" }}>Use: {c.when}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ══════════════════════════════════════════════════════
+          TAB: GPU & DISTRIBUTED TRAINING
+      ══════════════════════════════════════════════════════ */}
+      {activeTab === "gpu" && (
+        <div>
+          <InfoBox title="🚀 WHY GPU ACCELERATION?" color={color}>
+            Deep learning is dominated by <strong style={{color:"#e2e8f0"}}>matrix multiplications</strong> — operations that decompose into thousands of independent dot products. A CPU has ~16–64 cores optimised for serial tasks. A GPU has <strong style={{color:color}}>thousands of smaller cores</strong> designed for exactly this kind of massively parallel arithmetic. Training that takes weeks on CPU takes hours on GPU.
+          </InfoBox>
+
+          <SectionHeading title="GPU, AMP & Distributed Training — Code" color={color} />
+          <CodeBlock code={gpuCode} lang="python" color={color} />
+
+          <SectionHeading title="Distributed Strategies Comparison" color={color} />
+          <div style={{ overflowX:"auto" }}>
+            <table style={{ width:"100%", borderCollapse:"collapse", fontSize:"0.78rem", fontFamily:"'Space Mono',monospace" }}>
+              <thead>
+                <tr style={{ borderBottom:`1px solid ${color}30` }}>
+                  {["Strategy","GPUs","How it works","Bottleneck","Use when"].map(h => (
+                    <th key={h} style={{ textAlign:"left", padding:"8px 10px", color:color, fontSize:"0.65rem", letterSpacing:"0.06em" }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["Single GPU",       "1",     "Direct .to(device)",               "VRAM",              "Prototyping / small models"],
+                  ["DataParallel",     "1 node","Split batch; gather on GPU:0",      "GPU:0 bottleneck",  "Quick multi-GPU, 1 machine"],
+                  ["DDP",             "1+ node","All-reduce gradients; NCCL",        "Network bandwidth", "Production training standard"],
+                  ["FSDP",            "1+ node","Shard params + grads + optimiser",  "CPU offload I/O",   "Models > single GPU VRAM"],
+                  ["Tensor Parallel", "1+ node","Split individual tensors/layers",   "Communication",     "Huge layers (LLM attention)"],
+                  ["Pipeline Parallel","1+ node","Split layers across GPUs",         "Bubble overhead",   "Very deep sequential models"],
+                  ["Accelerate",      "Any",    "Unified API over all above",        "—",                 "HuggingFace ecosystem"],
+                ].map((row,i) => (
+                  <tr key={i} style={{ borderBottom:"1px solid rgba(255,255,255,0.04)", background: i%2===0?"rgba(255,255,255,0.01)":"transparent" }}>
+                    <td style={{ padding:"7px 10px", color:color, fontWeight:"700", whiteSpace:"nowrap" }}>{row[0]}</td>
+                    <td style={{ padding:"7px 10px", color:"#a78bfa" }}>{row[1]}</td>
+                    <td style={{ padding:"7px 10px", color:"#94a3b8", fontSize:"0.72rem" }}>{row[2]}</td>
+                    <td style={{ padding:"7px 10px", color:"#f87171", fontSize:"0.7rem" }}>{row[3]}</td>
+                    <td style={{ padding:"7px 10px", color:"#e2e8f0", fontSize:"0.72rem" }}>{row[4]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <InfoBox title="💡 MIXED PRECISION (AMP) — WHY IT WORKS" color={color}>
+            Float32 uses 4 bytes per value; Float16 uses 2 bytes — <strong style={{color:"#e2e8f0"}}>half the memory, twice the bandwidth</strong>. Modern GPUs (Ampere, Ada Lovelace) have dedicated Tensor Cores that run fp16/bf16 matrix math at 2–4× the throughput of fp32. AMP runs <strong style={{color:color}}>compute-heavy ops in fp16</strong> (matmuls, convolutions) while keeping numerically sensitive ops (softmax, BN, loss) in fp32. GradScaler prevents fp16 underflow by scaling the loss before backward, then unscaling before the optimiser step.
+          </InfoBox>
+        </div>
+      )}
+
+      {/* ══════════════════════════════════════════════════════
+          TAB: MODEL SAVE & LOAD
+      ══════════════════════════════════════════════════════ */}
+      {activeTab === "saving" && (
+        <div>
+          <InfoBox title="💾 THREE THINGS TO SAVE" color={color}>
+            A complete checkpoint needs: <strong style={{color:"#e2e8f0"}}>(1) model weights</strong> — the learned parameters; <strong style={{color:"#e2e8f0"}}>(2) optimiser state</strong> — momentum buffers, adaptive learning rates; <strong style={{color:"#e2e8f0"}}>(3) training metadata</strong> — epoch, best val loss, config. Without the optimiser state, resuming training restarts momentum from zero and convergence can regress significantly.
+          </InfoBox>
+
+          <SectionHeading title="Save, Load & Checkpoint — Code" color={color} />
+          <CodeBlock code={saveCode} lang="python" color={color} />
+
+          <SectionHeading title="Save Method Comparison" color={color} />
+          <div style={{ overflowX:"auto" }}>
+            <table style={{ width:"100%", borderCollapse:"collapse", fontSize:"0.78rem", fontFamily:"'Space Mono',monospace" }}>
+              <thead>
+                <tr style={{ borderBottom:`1px solid ${color}30` }}>
+                  {["Method","Saves","Format","Use for","Caution"].map(h => (
+                    <th key={h} style={{ textAlign:"left", padding:"8px 10px", color:color, fontSize:"0.65rem", letterSpacing:"0.06em" }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["state_dict()",     "Weights only",               ".pt/.pth",        "Inference, sharing",          "Need model class defined"],
+                  ["Full checkpoint",  "Weights + optim + meta",     ".pt/.pth",        "Resume training",             "File size; pickle security"],
+                  ["torch.save(model)","Entire model object",        ".pt/.pth",        "Quick experiments only",      "Brittle — breaks if class moves"],
+                  ["safetensors",      "Weights only",               ".safetensors",    "HuggingFace, LLMs, sharing",  "No Python objects — safe"],
+                  ["ONNX export",      "Computational graph",        ".onnx",           "Cross-framework inference",   "Dynamic shapes tricky"],
+                  ["TorchScript",      "Graph + weights",            ".pt",             "Production C++ inference",    "Not all Python ops supported"],
+                ].map((row,i) => (
+                  <tr key={i} style={{ borderBottom:"1px solid rgba(255,255,255,0.04)", background: i%2===0?"rgba(255,255,255,0.01)":"transparent" }}>
+                    <td style={{ padding:"7px 10px", color:color, fontWeight:"700", whiteSpace:"nowrap" }}>{row[0]}</td>
+                    <td style={{ padding:"7px 10px", color:"#e2e8f0" }}>{row[1]}</td>
+                    <td style={{ padding:"7px 10px", color:"#a78bfa" }}>{row[2]}</td>
+                    <td style={{ padding:"7px 10px", color:"#34d399", fontSize:"0.72rem" }}>{row[3]}</td>
+                    <td style={{ padding:"7px 10px", color:"#f87171", fontSize:"0.7rem" }}>{row[4]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* ══════════════════════════════════════════════════════
+          TAB: CALLBACKS
+      ══════════════════════════════════════════════════════ */}
+      {activeTab === "callbacks" && (
+        <div>
+          <InfoBox title="🔌 WHAT ARE CALLBACKS?" color={color}>
+            Callbacks are objects that <strong style={{color:"#e2e8f0"}}>hook into the training loop at well-defined lifecycle events</strong> — epoch begin/end, batch begin/end, train begin/end. They let you inject functionality (logging, checkpointing, early stopping, LR scheduling) without modifying the core training code. This is the same pattern used by Keras, HuggingFace Trainer, PyTorch Lightning, and FastAI.
+          </InfoBox>
+
+          <SectionHeading title="Training Lifecycle — Events Timeline" color={color} />
+          <div style={{ fontFamily:"'Space Mono',monospace", fontSize:"0.72rem", lineHeight:2 }}>
+            {[
+              { event:"on_train_begin",  when:"Once at start",       use:"Initialise loggers, verify setup" },
+              { event:"on_epoch_begin",  when:"Start of each epoch", use:"Reset epoch metrics, timers" },
+              { event:"on_batch_begin",  when:"Start of each batch", use:"Profiling, special augmentation" },
+              { event:"on_batch_end",    when:"After each batch",    use:"Gradient monitoring, batch loss" },
+              { event:"on_epoch_end",    when:"End of each epoch",   use:"Val loss, LR step, early stop, checkpoint, log" },
+              { event:"on_train_end",    when:"Once at finish",      use:"Save final model, close loggers" },
+            ].map((r,i) => (
+              <div key={i} style={{ display:"flex", gap:"12px", padding:"8px 0", borderBottom:"1px solid rgba(255,255,255,0.04)" }}>
+                <code style={{ color:color, minWidth:"180px", flexShrink:0 }}>{r.event}</code>
+                <span style={{ color:"#a78bfa", minWidth:"160px", flexShrink:0, fontSize:"0.7rem" }}>{r.when}</span>
+                <span style={{ color:"#64748b", fontSize:"0.7rem" }}>{r.use}</span>
+              </div>
+            ))}
+          </div>
+
+          <SectionHeading title="Callback System — Full Code" color={color} />
+          <CodeBlock code={callbackCode} lang="python" color={color} />
+
+          <SectionHeading title="Callback Types Reference" color={color} />
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(220px,1fr))", gap:"10px", marginBottom:"20px" }}>
+            {[
+              { name:"ModelCheckpoint",   emoji:"💾", desc:"Saves best N checkpoints by monitored metric. Keeps last.pt always.", key:"save_top_k, monitor, mode" },
+              { name:"EarlyStopping",     emoji:"🛑", desc:"Stops training when val metric stagnates. Optionally restores best weights.", key:"patience, min_delta, restore_best" },
+              { name:"LRScheduler",       emoji:"📉", desc:"Steps any PyTorch scheduler at epoch or batch end.", key:"scheduler.step() hook" },
+              { name:"WandB / TensorBoard",emoji:"📊",desc:"Logs metrics, gradients, model graph, images to dashboard.", key:"on_epoch_end, on_batch_end" },
+              { name:"GradientMonitor",   emoji:"⚠",  desc:"Tracks gradient norms; warns on exploding or vanishing gradients.", key:"on_batch_end after backward" },
+              { name:"CSVLogger",         emoji:"📋", desc:"Appends train/val metrics to a CSV file each epoch.", key:"on_epoch_end" },
+              { name:"Profiler",          emoji:"⏱", desc:"Measures per-op CPU/GPU timing to find bottlenecks.", key:"on_batch_begin / end" },
+              { name:"SWA (Stochastic WA)",emoji:"📈", desc:"Averages weights from late training epochs for better generalisation.", key:"on_epoch_end (last N epochs)" },
+            ].map((c,i) => (
+              <div key={i} style={{ background:"rgba(255,255,255,0.02)", border:`1px solid ${color}15`, borderRadius:"8px", padding:"14px" }}>
+                <div style={{ fontSize:"1.2rem", marginBottom:"6px" }}>{c.emoji}</div>
+                <div style={{ fontFamily:"'Space Mono',monospace", fontSize:"0.74rem", color:color, fontWeight:"700", marginBottom:"6px" }}>{c.name}</div>
+                <div style={{ fontSize:"0.75rem", color:"#94a3b8", lineHeight:1.6, marginBottom:"6px" }}>{c.desc}</div>
+                <code style={{ fontFamily:"'Space Mono',monospace", fontSize:"0.65rem", color:"#475569" }}>{c.key}</code>
+              </div>
+            ))}
+          </div>
+
+          <InfoBox title="🔗 FRAMEWORK EQUIVALENTS" color={color}>
+            <strong style={{color:"#e2e8f0"}}>PyTorch Lightning:</strong> LightningModule has built-in hooks (training_step, validation_epoch_end) and first-class callback support.<br/><br/>
+            <strong style={{color:"#e2e8f0"}}>HuggingFace Trainer:</strong> Pass a list of <code style={{color:color}}>TrainerCallback</code> subclasses. Built-in: EarlyStoppingCallback, TensorBoardCallback, WandbCallback.<br/><br/>
+            <strong style={{color:"#e2e8f0"}}>Keras:</strong> The original callback API. model.fit(callbacks=[...]) — same lifecycle events as above.
+          </InfoBox>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function DeepLearningView() {
+  const color = "#06b6d4";
+  const [activeTab, setActiveTab] = useState("ann");
+  const tabs = ["ann", "cnn", "rnn", "lstm", "gru"];
+
+  // ── ANN CODE ──────────────────────────────────────────────
+  const annCode = `import torch
+import torch.nn as nn
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  ARTIFICIAL NEURAL NETWORK (Fully Connected / MLP)
+#  Architecture: Input(784) → Hidden(256) → Hidden(128) → Output(10)
+#  Task: MNIST digit classification
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+class ANN(nn.Module):
+    def __init__(self, input_size=784, h1=256, h2=128, output=10):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(input_size, h1),   # Layer 1: 784→256
+            nn.ReLU(),
+            nn.Dropout(0.3),
+            nn.Linear(h1, h2),           # Layer 2: 256→128
+            nn.ReLU(),
+            nn.Dropout(0.3),
+            nn.Linear(h2, output)        # Layer 3: 128→10
+        )
+    def forward(self, x):
+        x = x.view(x.size(0), -1)       # Flatten image: [B,1,28,28]→[B,784]
+        return self.net(x)
+
+model = ANN()
+
+# ── Parameter count (weights + biases) ───────────────────────
+# Layer 1: 784×256 weights + 256 biases     = 200,960
+# Layer 2: 256×128 weights + 128 biases     =  32,896
+# Layer 3: 128×10  weights +  10 biases     =   1,290
+# ─────────────────────────────────────────────────────────────
+# TOTAL                                     = 235,146 params
+
+total = sum(p.numel() for p in model.parameters())
+print(f"Total parameters: {total:,}")       # → 235,146
+
+# ── Training loop ────────────────────────────────────────────
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+criterion = nn.CrossEntropyLoss()
+
+def train_epoch(loader):
+    model.train()
+    for images, labels in loader:
+        optimizer.zero_grad()
+        logits = model(images)              # Forward pass
+        loss = criterion(logits, labels)    # Cross-entropy loss
+        loss.backward()                     # Backprop
+        optimizer.step()                    # SGD update`;
+
+  // ── CNN CODE ──────────────────────────────────────────────
+  const cnnCode = `import torch
+import torch.nn as nn
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  CONVOLUTIONAL NEURAL NETWORK
+#  Input: 3×32×32 (CIFAR-10)  → Output: 10 classes
+#
+#  IMAGE SIZE FORMULA after Conv:
+#    out = floor((in + 2×pad - kernel) / stride) + 1
+#
+#  IMAGE SIZE FORMULA after MaxPool (stride=pool_size):
+#    out = floor(in / pool_size)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+class CNN(nn.Module):
+    def __init__(self):
+        super().__init__()
+        # ── Block 1 ────────────────────────────────────────
+        # Conv2d(in_ch, out_ch, kernel, padding)
+        # Input:  3×32×32
+        # After Conv1  (k=3,p=1): (32+2×1-3)/1+1 = 32 → 32×32×32
+        # After Pool   (2×2):      32/2             = 16 → 32×16×16
+        self.block1 = nn.Sequential(
+            nn.Conv2d(3, 32, kernel_size=3, padding=1),
+            nn.BatchNorm2d(32),
+            nn.ReLU(),
+            nn.MaxPool2d(2)             # 32×32 → 16×16
+        )
+        # ── Block 2 ────────────────────────────────────────
+        # Input:  32×16×16
+        # After Conv2  (k=3,p=1): (16+2×1-3)/1+1 = 16 → 64×16×16
+        # After Pool   (2×2):      16/2             = 8  → 64×8×8
+        self.block2 = nn.Sequential(
+            nn.Conv2d(32, 64, kernel_size=3, padding=1),
+            nn.BatchNorm2d(64),
+            nn.ReLU(),
+            nn.MaxPool2d(2)             # 16×16 → 8×8
+        )
+        # ── Block 3 ────────────────────────────────────────
+        # Input:  64×8×8
+        # After Conv3  (k=3,p=1): (8+2×1-3)/1+1  = 8  → 128×8×8
+        # After Pool   (2×2):      8/2              = 4  → 128×4×4
+        self.block3 = nn.Sequential(
+            nn.Conv2d(64, 128, kernel_size=3, padding=1),
+            nn.BatchNorm2d(128),
+            nn.ReLU(),
+            nn.MaxPool2d(2)             # 8×8 → 4×4
+        )
+        # ── Classifier head ────────────────────────────────
+        # Flatten: 128×4×4 = 2048
+        self.classifier = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(128 * 4 * 4, 256),
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.Linear(256, 10)
+        )
+
+    def forward(self, x):               # x: [B, 3, 32, 32]
+        x = self.block1(x)              # → [B, 32, 16, 16]
+        x = self.block2(x)              # → [B, 64, 8, 8]
+        x = self.block3(x)              # → [B, 128, 4, 4]
+        return self.classifier(x)       # → [B, 10]
+
+model = CNN()
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  PARAMETER CALCULATION  (Conv layers)
+#
+#  Conv params = (kernel_h × kernel_w × in_ch + 1) × out_ch
+#                 └── +1 for bias per filter ──────────────┘
+#
+#  Conv1: (3×3×3  + 1)×32  =    896
+#  BN1  :  2×32             =     64  (gamma + beta per channel)
+#  Conv2: (3×3×32 + 1)×64  = 18,496
+#  BN2  :  2×64             =    128
+#  Conv3: (3×3×64 + 1)×128 = 73,856
+#  BN3  :  2×128            =    256
+#  FC1  : 2048×256 + 256    = 524,544
+#  FC2  :  256×10  + 10     =   2,570
+# ─────────────────────────────────────────────────────────
+#  TOTAL                    = 620,810 params
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+total = sum(p.numel() for p in model.parameters())
+print(f"Total parameters: {total:,}")   # → 620,810`;
+
+  // ── RNN CODE ──────────────────────────────────────────────
+  const rnnCode = `import torch
+import torch.nn as nn
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  VANILLA RNN — Sentiment classification
+#  Input: sequences of word embeddings  [B, T, input_size]
+#  Hidden state carries context across time steps
+#
+#  FORWARD EQUATION (per timestep t):
+#    h_t = tanh(x_t · W_ih^T + b_ih + h_{t-1} · W_hh^T + b_hh)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+class SentimentRNN(nn.Module):
+    def __init__(self, vocab_size=10000, embed_dim=128,
+                 hidden_size=256, num_layers=2, output=2):
+        super().__init__()
+        self.embedding = nn.Embedding(vocab_size, embed_dim)
+        # batch_first=True → input shape [B, T, features]
+        self.rnn = nn.RNN(
+            input_size=embed_dim,
+            hidden_size=hidden_size,
+            num_layers=num_layers,
+            batch_first=True,
+            dropout=0.3,
+            bidirectional=False
+        )
+        self.fc = nn.Linear(hidden_size, output)
+
+    def forward(self, x):               # x: [B, T]
+        emb = self.embedding(x)         # → [B, T, 128]
+        out, h_n = self.rnn(emb)        # out:[B,T,256]  h_n:[2,B,256]
+        last_h = h_n[-1]                # Take last layer's final state
+        return self.fc(last_h)          # → [B, 2]
+
+model = SentimentRNN()
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  RNN PARAMETER COUNT  (per layer, per direction)
+#
+#  For RNN layer: W_ih (input→hidden) + W_hh (hidden→hidden) + 2 biases
+#
+#  Layer 1:  W_ih: 128×256   = 32,768
+#            W_hh: 256×256   = 65,536
+#            b_ih + b_hh     =    512
+#            Subtotal        = 98,816
+#
+#  Layer 2:  W_ih: 256×256   = 65,536  (input=prev hidden size)
+#            W_hh: 256×256   = 65,536
+#            b_ih + b_hh     =    512
+#            Subtotal        = 131,584
+#
+#  Embedding: 10000×128       = 1,280,000
+#  FC:         256×2 + 2      =       514
+# ─────────────────────────────────────────────────────────
+#  TOTAL                      = 1,510,914 params
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+#  WHY VANILLA RNN FAILS ON LONG SEQUENCES:
+#  Gradients flow through tanh at each step → values in (-1,1)
+#  After T multiplications: gradient → 0  (vanishing gradient)
+#  The model forgets information from early timesteps entirely.
+#  LSTM & GRU solve this with gating mechanisms.
+
+total = sum(p.numel() for p in model.parameters())
+print(f"Total parameters: {total:,}")   # → 1,510,914`;
+
+  // ── LSTM CODE ─────────────────────────────────────────────
+  const lstmCode = `import torch
+import torch.nn as nn
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  LONG SHORT-TERM MEMORY (LSTM)
+#  Solves vanishing gradient via a cell state (long-term memory)
+#  and 3 learned gates that control information flow.
+#
+#  GATES (each has same parameter structure as a vanilla RNN layer):
+#    Forget gate: f_t = σ(W_f·[h_{t-1}, x_t] + b_f)
+#    Input  gate: i_t = σ(W_i·[h_{t-1}, x_t] + b_i)
+#    Cell   gate: g_t = tanh(W_g·[h_{t-1}, x_t] + b_g)
+#    Output gate: o_t = σ(W_o·[h_{t-1}, x_t] + b_o)
+#
+#  Cell state update:
+#    C_t = f_t ⊙ C_{t-1} + i_t ⊙ g_t
+#  Hidden state:
+#    h_t = o_t ⊙ tanh(C_t)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+class TextLSTM(nn.Module):
+    def __init__(self, vocab_size=10000, embed_dim=128,
+                 hidden_size=256, num_layers=2, output=2):
+        super().__init__()
+        self.hidden_size = hidden_size
+        self.num_layers  = num_layers
+        self.embedding   = nn.Embedding(vocab_size, embed_dim)
+        self.lstm = nn.LSTM(
+            input_size=embed_dim,
+            hidden_size=hidden_size,
+            num_layers=num_layers,
+            batch_first=True,
+            dropout=0.3,
+            bidirectional=False
+        )
+        self.fc = nn.Linear(hidden_size, output)
+
+    def forward(self, x):
+        emb = self.embedding(x)         # [B, T, 128]
+        # h0, c0 default to zeros
+        out, (h_n, c_n) = self.lstm(emb)
+        # h_n shape: [num_layers, B, hidden_size]
+        last_hidden = h_n[-1]           # Final layer hidden state
+        return self.fc(last_hidden)     # [B, 2]
+
+model = TextLSTM()
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  LSTM PARAMETER COUNT
+#
+#  LSTM has 4× parameters vs a vanilla RNN (4 gates).
+#  Each gate: W_ih (input→hidden) + W_hh (hidden→hidden) + 2 biases
+#
+#  Layer 1 (4 gates combined as W_ih_all, W_hh_all):
+#    W_ih_all: 128×(4×256) = 128×1024  = 131,072
+#    W_hh_all: 256×(4×256) = 256×1024  = 262,144
+#    b_ih + b_hh: 2×(4×256)            =   2,048
+#    Subtotal                           = 395,264
+#
+#  Layer 2 (input_size = hidden_size = 256):
+#    W_ih_all: 256×1024                 = 262,144
+#    W_hh_all: 256×1024                 = 262,144
+#    b_ih + b_hh                        =   2,048
+#    Subtotal                           = 526,336
+#
+#  Embedding: 10000×128                 = 1,280,000
+#  FC:         256×2 + 2                =       514
+# ─────────────────────────────────────────────────────────
+#  TOTAL                                = 2,202,114 params
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  KEY INSIGHT: The cell state C_t is a "highway" for gradients —
+#  it can flow back through time without passing through any
+#  non-linearity if the forget gate stays ≈1. This is why LSTMs
+#  can learn dependencies spanning hundreds of timesteps.
+
+total = sum(p.numel() for p in model.parameters())
+print(f"Total parameters: {total:,}")   # → 2,202,114`;
+
+  // ── GRU CODE ──────────────────────────────────────────────
+  const gruCode = `import torch
+import torch.nn as nn
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  GATED RECURRENT UNIT (GRU) — Cho et al., 2014
+#  Simpler than LSTM (2 gates instead of 3, no separate cell state)
+#  Matches LSTM quality on most tasks, fewer parameters.
+#
+#  GATES:
+#    Reset gate: r_t = σ(W_r·[h_{t-1}, x_t])
+#    Update gate: z_t = σ(W_z·[h_{t-1}, x_t])
+#
+#  Candidate hidden:
+#    n_t = tanh(W_n·[r_t ⊙ h_{t-1}, x_t])
+#
+#  Final hidden (interpolation, no separate cell state):
+#    h_t = (1 - z_t) ⊙ h_{t-1} + z_t ⊙ n_t
+#          └── keep old ───────┘  └── new ──┘
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+class TextGRU(nn.Module):
+    def __init__(self, vocab_size=10000, embed_dim=128,
+                 hidden_size=256, num_layers=2, output=2):
+        super().__init__()
+        self.embedding = nn.Embedding(vocab_size, embed_dim)
+        self.gru = nn.GRU(
+            input_size=embed_dim,
+            hidden_size=hidden_size,
+            num_layers=num_layers,
+            batch_first=True,
+            dropout=0.3,
+            bidirectional=False
+        )
+        self.fc = nn.Linear(hidden_size, output)
+
+    def forward(self, x):
+        emb = self.embedding(x)         # [B, T, 128]
+        out, h_n = self.gru(emb)        # out:[B,T,256]  h_n:[2,B,256]
+        return self.fc(h_n[-1])         # [B, 2]
+
+model = TextGRU()
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  GRU PARAMETER COUNT
+#
+#  GRU has 3× parameters vs vanilla RNN (3 gates: r, z, n).
+#  PyTorch combines them into W_ih_all and W_hh_all.
+#
+#  Layer 1 (3 gates):
+#    W_ih_all: 128×(3×256) = 128×768    =  98,304
+#    W_hh_all: 256×(3×256) = 256×768    = 196,608
+#    b_ih + b_hh: 2×(3×256)             =   1,536
+#    Subtotal                            = 296,448
+#
+#  Layer 2 (input = hidden_size = 256):
+#    W_ih_all: 256×768                   = 196,608
+#    W_hh_all: 256×768                   = 196,608
+#    b_ih + b_hh                         =   1,536
+#    Subtotal                            = 394,752
+#
+#  Embedding: 10000×128                  = 1,280,000
+#  FC:         256×2 + 2                 =       514
+# ─────────────────────────────────────────────────────────
+#  TOTAL                                 = 1,971,714 params
+#
+#  COMPARISON (same hidden_size=256, 2 layers):
+#    RNN   →   230,914  params   (1× baseline)
+#    GRU   → 1,971,714  params   (~3× RNN layer params)
+#    LSTM  → 2,202,114  params   (~4× RNN layer params)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+total = sum(p.numel() for p in model.parameters())
+print(f"Total parameters: {total:,}")   # → 1,971,714`;
+
+  const paramFormulaData = {
+    ann: [
+      { layer: "Linear(784→256)", weights: "784×256 = 200,704", biases: "256", total: "200,960" },
+      { layer: "Linear(256→128)", weights: "256×128 = 32,768",  biases: "128", total: "32,896"  },
+      { layer: "Linear(128→10)",  weights: "128×10  = 1,280",   biases: "10",  total: "1,290"   },
+    ],
+    cnn: [
+      { layer: "Conv2d(3,32,k=3)",   weights: "(3×3×3+1)×32",   biases: "32",  total: "896"    },
+      { layer: "Conv2d(32,64,k=3)",  weights: "(3×3×32+1)×64",  biases: "64",  total: "18,496" },
+      { layer: "Conv2d(64,128,k=3)", weights: "(3×3×64+1)×128", biases: "128", total: "73,856" },
+      { layer: "Linear(2048→256)",   weights: "2048×256",        biases: "256", total: "524,544"},
+      { layer: "Linear(256→10)",     weights: "256×10",          biases: "10",  total: "2,570"  },
+    ],
+    rnn: [
+      { layer: "RNN L1 W_ih(128→256)", weights: "128×256 = 32,768",  biases: "256", total: "33,024"  },
+      { layer: "RNN L1 W_hh(256→256)", weights: "256×256 = 65,536",  biases: "256", total: "65,792"  },
+      { layer: "RNN L2 W_ih(256→256)", weights: "256×256 = 65,536",  biases: "256", total: "65,792"  },
+      { layer: "RNN L2 W_hh(256→256)", weights: "256×256 = 65,536",  biases: "256", total: "65,792"  },
+    ],
+    lstm: [
+      { layer: "LSTM L1 W_ih(128→4×256)", weights: "128×1024 = 131,072", biases: "1,024", total: "132,096" },
+      { layer: "LSTM L1 W_hh(256→4×256)", weights: "256×1024 = 262,144", biases: "1,024", total: "263,168" },
+      { layer: "LSTM L2 W_ih(256→4×256)", weights: "256×1024 = 262,144", biases: "1,024", total: "263,168" },
+      { layer: "LSTM L2 W_hh(256→4×256)", weights: "256×1024 = 262,144", biases: "1,024", total: "263,168" },
+    ],
+    gru: [
+      { layer: "GRU L1 W_ih(128→3×256)", weights: "128×768 = 98,304",   biases: "768", total: "99,072"  },
+      { layer: "GRU L1 W_hh(256→3×256)", weights: "256×768 = 196,608",  biases: "768", total: "197,376" },
+      { layer: "GRU L2 W_ih(256→3×256)", weights: "256×768 = 196,608",  biases: "768", total: "197,376" },
+      { layer: "GRU L2 W_hh(256→3×256)", weights: "256×768 = 196,608",  biases: "768", total: "197,376" },
+    ],
+  };
+
+  const codeMap = { ann: annCode, cnn: cnnCode, rnn: rnnCode, lstm: lstmCode, gru: gruCode };
+
+  const tabMeta = {
+    ann:  { label: "ANN",  full: "Artificial Neural Network",    icon: "●—●—●" },
+    cnn:  { label: "CNN",  full: "Convolutional Neural Network", icon: "▣▣▣"   },
+    rnn:  { label: "RNN",  full: "Recurrent Neural Network",     icon: "↺"      },
+    lstm: { label: "LSTM", full: "Long Short-Term Memory",       icon: "⬡"      },
+    gru:  { label: "GRU",  full: "Gated Recurrent Unit",         icon: "◈"      },
+  };
+
+  const overviewCards = [
+    { id:"ann",  title:"ANN / MLP",  desc:"Fully connected layers. Every neuron talks to every neuron in the next layer. Baseline for tabular data, classification.", params:"~235K", use:"Tabular, classification" },
+    { id:"cnn",  title:"CNN",        desc:"Shared convolutional filters slide across spatial data. Exploits translation invariance. Hierarchical feature detection.", params:"~620K", use:"Images, audio spectrograms" },
+    { id:"rnn",  title:"RNN",        desc:"Hidden state loops back as input. Processes sequences step-by-step. Suffers vanishing gradients on long sequences.", params:"~1.5M", use:"Short sequences (deprecated)" },
+    { id:"lstm", title:"LSTM",       desc:"4 gates + cell state highway. Long-range dependencies preserved. Gold standard for sequences before Transformers.", params:"~2.2M", use:"NLP, time-series, speech" },
+    { id:"gru",  title:"GRU",        desc:"2 gates, no separate cell state. Simpler & faster than LSTM. Comparable quality on most tasks with fewer params.", params:"~2.0M", use:"NLP, time-series (efficient)" },
+  ];
+
+  const cnnDimData = [
+    { layer: "Input",         spatial:"32×32", channels:"3",   formula:"—",                          note:"RGB CIFAR-10 image"         },
+    { layer: "Conv1(k=3,p=1)",spatial:"32×32", channels:"32",  formula:"(32+2×1-3)/1+1 = 32",        note:"Padding preserves size"     },
+    { layer: "MaxPool2d(2)",  spatial:"16×16", channels:"32",  formula:"32/2 = 16",                  note:"Halves spatial dimensions"  },
+    { layer: "Conv2(k=3,p=1)",spatial:"16×16", channels:"64",  formula:"(16+2×1-3)/1+1 = 16",        note:"Padding preserves size"     },
+    { layer: "MaxPool2d(2)",  spatial:"8×8",   channels:"64",  formula:"16/2 = 8",                   note:"Halves spatial dimensions"  },
+    { layer: "Conv3(k=3,p=1)",spatial:"8×8",   channels:"128", formula:"(8+2×1-3)/1+1 = 8",          note:"Padding preserves size"     },
+    { layer: "MaxPool2d(2)",  spatial:"4×4",   channels:"128", formula:"8/2 = 4",                    note:"Halves spatial dimensions"  },
+    { layer: "Flatten",       spatial:"—",     channels:"—",   formula:"128×4×4 = 2048",             note:"Vectorize for FC layers"    },
+    { layer: "Linear(2048→256)",spatial:"—",   channels:"—",   formula:"2048×256+256 = 524,544",     note:"Dense classification head"  },
+    { layer: "Linear(256→10)", spatial:"—",    channels:"—",   formula:"256×10+10 = 2,570",          note:"10-class logits"            },
+  ];
+
+  return (
+    <div>
+      {/* ── Tab bar ─────────────────────────────────────────── */}
+      <div style={{ display:"flex", gap:"6px", marginBottom:"24px", flexWrap:"wrap" }}>
+        {tabs.map(t => (
+          <button key={t} onClick={() => setActiveTab(t)} style={{
+            background: activeTab === t ? color : "rgba(255,255,255,0.04)",
+            color: activeTab === t ? "#0a0f1a" : "#64748b",
+            border: `1px solid ${activeTab === t ? color : "rgba(255,255,255,0.1)"}`,
+            borderRadius:"6px", padding:"6px 14px", fontSize:"0.72rem",
+            fontFamily:"'Space Mono',monospace", cursor:"pointer",
+            fontWeight:"700", letterSpacing:"0.05em", transition:"all 0.2s",
+            textTransform:"uppercase"
+          }}>{tabMeta[t].label}</button>
+        ))}
+      </div>
+
+      {/* ── Overview tab ─────────────────────────────────────── */}
+      {activeTab === "ann" && (
+        <div>
+          <InfoBox title="🧠 DEEP LEARNING IN ONE PARAGRAPH" color={color}>
+            Deep learning lets neural networks learn <strong style={{color:"#e2e8f0"}}>hierarchical representations</strong> directly from raw data — no hand-crafted features needed. Each layer transforms its inputs into progressively more abstract representations. The network is trained end-to-end via backpropagation and gradient descent. This chapter covers the five foundational architectures with full code examples and exact parameter arithmetic.
+          </InfoBox>
+
+          {/* Architecture cards */}
+          <SectionHeading title="Architecture Overview" color={color} />
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(220px,1fr))", gap:"12px", marginBottom:"24px" }}>
+            {overviewCards.map(c => (
+              <div key={c.id} onClick={() => setActiveTab(c.id)} style={{
+                background:"rgba(255,255,255,0.02)", border:`1px solid ${activeTab===c.id ? color : "rgba(255,255,255,0.08)"}`,
+                borderRadius:"10px", padding:"14px", cursor:"pointer", transition:"all 0.2s"
+              }}>
+                <div style={{ fontFamily:"'Space Mono',monospace", fontSize:"0.78rem", color:color, fontWeight:"700", marginBottom:"6px" }}>{c.title}</div>
+                <p style={{ color:"#64748b", fontSize:"0.78rem", lineHeight:1.6, margin:"0 0 10px" }}>{c.desc}</p>
+                <div style={{ display:"flex", gap:"6px", flexWrap:"wrap" }}>
+                  <span style={{ fontFamily:"'Space Mono',monospace", fontSize:"0.65rem", background:`${color}15`, color:color, borderRadius:"4px", padding:"2px 6px" }}>{c.params}</span>
+                  <span style={{ fontFamily:"'Space Mono',monospace", fontSize:"0.65rem", background:"rgba(255,255,255,0.04)", color:"#475569", borderRadius:"4px", padding:"2px 6px" }}>{c.use}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <SectionHeading title="Parameter Formula — Fully Connected Layer" color={color} />
+          <div style={{ background:"rgba(0,0,0,0.4)", border:`1px solid ${color}30`, borderRadius:"8px", padding:"16px 18px", fontFamily:"'Space Mono',monospace", fontSize:"0.78rem", color:color, lineHeight:2 }}>
+            {"Params = (in_features × out_features) + out_features"}<br/>
+            {"       = in_features × out_features  ← weights"}<br/>
+            {"       +              out_features   ← biases (one per neuron)"}<br/>
+            <br/>
+            {"Example: Linear(784 → 256)"}<br/>
+            {"  Weights: 784 × 256 = 200,704"}<br/>
+            {"  Biases:        256 =     256"}<br/>
+            {"  Total:              200,960"}
+          </div>
+
+          <SectionHeading title="ANN Code — MNIST Classifier" color={color} />
+          <CodeBlock code={annCode} lang="python" color={color} />
+
+          {/* Param table */}
+          <SectionHeading title="Layer-wise Parameter Breakdown" color={color} />
+          <div style={{ overflowX:"auto" }}>
+            <table style={{ width:"100%", borderCollapse:"collapse", fontSize:"0.8rem", fontFamily:"'Space Mono',monospace" }}>
+              <thead>
+                <tr style={{ borderBottom:`1px solid ${color}30` }}>
+                  {["Layer","Weights formula","Biases","Total params"].map(h => (
+                    <th key={h} style={{ textAlign:"left", padding:"8px 12px", color:color, fontSize:"0.68rem", letterSpacing:"0.06em" }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {paramFormulaData.ann.map((r,i) => (
+                  <tr key={i} style={{ borderBottom:"1px solid rgba(255,255,255,0.04)" }}>
+                    <td style={{ padding:"8px 12px", color:"#e2e8f0" }}>{r.layer}</td>
+                    <td style={{ padding:"8px 12px", color:"#94a3b8" }}>{r.weights}</td>
+                    <td style={{ padding:"8px 12px", color:"#94a3b8" }}>{r.biases}</td>
+                    <td style={{ padding:"8px 12px", color:color, fontWeight:"700" }}>{r.total}</td>
+                  </tr>
+                ))}
+                <tr style={{ borderTop:`1px solid ${color}40`, background:`${color}08` }}>
+                  <td colSpan={3} style={{ padding:"8px 12px", color:"#e2e8f0", fontWeight:"700" }}>TOTAL</td>
+                  <td style={{ padding:"8px 12px", color:color, fontWeight:"700" }}>235,146</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* ── CNN ─────────────────────────────────────────────── */}
+      {activeTab === "cnn" && (
+        <div>
+          <InfoBox title="🔍 CNN KEY INSIGHT" color={color}>
+            Convolutional layers apply the <strong style={{color:"#e2e8f0"}}>same small filter</strong> across the entire input — weight sharing drastically cuts parameters vs a fully connected layer. A filter detecting "edge" is useful everywhere in an image, not just at position (3,5). MaxPooling progressively compresses spatial dimensions, building invariance to small translations.
+          </InfoBox>
+
+          <SectionHeading title="Conv Formula" color={color} />
+          <div style={{ background:"rgba(0,0,0,0.4)", border:`1px solid ${color}30`, borderRadius:"8px", padding:"16px 18px", fontFamily:"'Space Mono',monospace", fontSize:"0.78rem", color:color, lineHeight:2 }}>
+            {"Output spatial size (per dimension):"}<br/>
+            {"  out = floor((in + 2×pad - kernel) / stride) + 1"}<br/>
+            <br/>
+            {"After MaxPool(pool_size, stride=pool_size):"}<br/>
+            {"  out = floor(in / pool_size)"}<br/>
+            <br/>
+            {"Conv parameter count:"}<br/>
+            {"  params = (kernel_h × kernel_w × in_channels + 1) × out_channels"}<br/>
+            {"           └──────────────────────────────────────┘   └──────────┘"}<br/>
+            {"             weights per filter (+1 = bias)            # filters"}
+          </div>
+
+          <SectionHeading title="CNN Code — CIFAR-10 Classifier" color={color} />
+          <CodeBlock code={cnnCode} lang="python" color={color} />
+
+          <SectionHeading title="Spatial Dimension Trace — 32×32 Input" color={color} />
+          <div style={{ overflowX:"auto" }}>
+            <table style={{ width:"100%", borderCollapse:"collapse", fontSize:"0.78rem", fontFamily:"'Space Mono',monospace" }}>
+              <thead>
+                <tr style={{ borderBottom:`1px solid ${color}30` }}>
+                  {["Layer","Spatial size","Channels","Calculation","Note"].map(h => (
+                    <th key={h} style={{ textAlign:"left", padding:"8px 10px", color:color, fontSize:"0.65rem", letterSpacing:"0.06em" }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {cnnDimData.map((r,i) => (
+                  <tr key={i} style={{ borderBottom:"1px solid rgba(255,255,255,0.04)", background: i%2===0 ? "rgba(255,255,255,0.01)" : "transparent" }}>
+                    <td style={{ padding:"7px 10px", color:"#e2e8f0", whiteSpace:"nowrap" }}>{r.layer}</td>
+                    <td style={{ padding:"7px 10px", color:color, fontWeight:"700" }}>{r.spatial}</td>
+                    <td style={{ padding:"7px 10px", color:"#a78bfa" }}>{r.channels}</td>
+                    <td style={{ padding:"7px 10px", color:"#94a3b8", fontSize:"0.72rem" }}>{r.formula}</td>
+                    <td style={{ padding:"7px 10px", color:"#475569", fontSize:"0.72rem" }}>{r.note}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <SectionHeading title="Layer-wise Parameter Breakdown" color={color} />
+          <div style={{ overflowX:"auto" }}>
+            <table style={{ width:"100%", borderCollapse:"collapse", fontSize:"0.8rem", fontFamily:"'Space Mono',monospace" }}>
+              <thead>
+                <tr style={{ borderBottom:`1px solid ${color}30` }}>
+                  {["Layer","Formula","Biases","Total"].map(h => (
+                    <th key={h} style={{ textAlign:"left", padding:"8px 12px", color:color, fontSize:"0.68rem", letterSpacing:"0.06em" }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {paramFormulaData.cnn.map((r,i) => (
+                  <tr key={i} style={{ borderBottom:"1px solid rgba(255,255,255,0.04)" }}>
+                    <td style={{ padding:"8px 12px", color:"#e2e8f0" }}>{r.layer}</td>
+                    <td style={{ padding:"8px 12px", color:"#94a3b8" }}>{r.weights}</td>
+                    <td style={{ padding:"8px 12px", color:"#94a3b8" }}>{r.biases}</td>
+                    <td style={{ padding:"8px 12px", color:color, fontWeight:"700" }}>{r.total}</td>
+                  </tr>
+                ))}
+                <tr style={{ borderTop:`1px solid ${color}40`, background:`${color}08` }}>
+                  <td colSpan={3} style={{ padding:"8px 12px", color:"#e2e8f0", fontWeight:"700" }}>TOTAL (+ BatchNorm)</td>
+                  <td style={{ padding:"8px 12px", color:color, fontWeight:"700" }}>620,810</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* ── RNN ─────────────────────────────────────────────── */}
+      {activeTab === "rnn" && (
+        <div>
+          <InfoBox title="↺ RNN — Sequential Processing" color={color}>
+            RNNs process tokens one-by-one, passing a <strong style={{color:"#e2e8f0"}}>hidden state</strong> from each step to the next — like a running summary of everything seen so far. The same weight matrix is applied at every step (parameter sharing across time). Fatal flaw: gradients must multiply through the same W_hh matrix T times — if its singular values &lt;1, gradients vanish; if &gt;1, they explode.
+          </InfoBox>
+
+          <SectionHeading title="RNN Cell Equation" color={color} />
+          <div style={{ background:"rgba(0,0,0,0.4)", border:`1px solid ${color}30`, borderRadius:"8px", padding:"16px 18px", fontFamily:"'Space Mono',monospace", fontSize:"0.78rem", color:color, lineHeight:2 }}>
+            {"h_t = tanh(x_t · W_ih^T + b_ih  +  h_{t-1} · W_hh^T + b_hh)"}<br/>
+            {"      └─────────────────────────┘  └─────────────────────────┘"}<br/>
+            {"        input contribution            recurrent contribution"}<br/>
+            <br/>
+            {"Parameter count per layer:"}<br/>
+            {"  W_ih: input_size × hidden_size   (input → hidden)"}<br/>
+            {"  W_hh: hidden_size × hidden_size  (hidden → hidden)"}<br/>
+            {"  b_ih + b_hh: 2 × hidden_size"}
+          </div>
+
+          <SectionHeading title="RNN Code — Sentiment Classification" color={color} />
+          <CodeBlock code={rnnCode} lang="python" color={color} />
+
+          <SectionHeading title="Layer-wise Parameter Breakdown" color={color} />
+          <div style={{ overflowX:"auto" }}>
+            <table style={{ width:"100%", borderCollapse:"collapse", fontSize:"0.8rem", fontFamily:"'Space Mono',monospace" }}>
+              <thead>
+                <tr style={{ borderBottom:`1px solid ${color}30` }}>
+                  {["Matrix","Weights formula","Biases","Total"].map(h => (
+                    <th key={h} style={{ textAlign:"left", padding:"8px 12px", color:color, fontSize:"0.68rem", letterSpacing:"0.06em" }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {paramFormulaData.rnn.map((r,i) => (
+                  <tr key={i} style={{ borderBottom:"1px solid rgba(255,255,255,0.04)" }}>
+                    <td style={{ padding:"8px 12px", color:"#e2e8f0" }}>{r.layer}</td>
+                    <td style={{ padding:"8px 12px", color:"#94a3b8" }}>{r.weights}</td>
+                    <td style={{ padding:"8px 12px", color:"#94a3b8" }}>{r.biases}</td>
+                    <td style={{ padding:"8px 12px", color:color, fontWeight:"700" }}>{r.total}</td>
+                  </tr>
+                ))}
+                <tr style={{ borderTop:`1px solid ${color}40`, background:`${color}08` }}>
+                  <td colSpan={3} style={{ padding:"8px 12px", color:"#e2e8f0", fontWeight:"700" }}>TOTAL (incl. Embedding + FC)</td>
+                  <td style={{ padding:"8px 12px", color:color, fontWeight:"700" }}>1,510,914</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* ── LSTM ────────────────────────────────────────────── */}
+      {activeTab === "lstm" && (
+        <div>
+          <InfoBox title="⬡ LSTM — The Gated Cell State Highway" color={color}>
+            LSTMs introduce a <strong style={{color:"#e2e8f0"}}>cell state C_t</strong> — a separate memory lane that runs alongside the hidden state. Three gates (forget, input, output) are learned sigmoid functions that decide what to erase, what to write, and what to expose. Crucially, C_t can flow backward through time with gradients multiplying by <strong style={{color:color}}>forget gate values</strong> — when close to 1.0, gradients are nearly lossless over many steps.
+          </InfoBox>
+
+          <SectionHeading title="LSTM Gate Equations" color={color} />
+          <div style={{ background:"rgba(0,0,0,0.4)", border:`1px solid ${color}30`, borderRadius:"8px", padding:"16px 18px", fontFamily:"'Space Mono',monospace", fontSize:"0.78rem", color:color, lineHeight:2 }}>
+            {"f_t = σ(W_f·[h_{t-1}, x_t] + b_f)    ← Forget gate (what to erase from C)"}<br/>
+            {"i_t = σ(W_i·[h_{t-1}, x_t] + b_i)    ← Input  gate (what positions to write)"}<br/>
+            {"g_t = tanh(W_g·[h_{t-1},x_t] + b_g)  ← Cell   gate (candidate values to write)"}<br/>
+            {"o_t = σ(W_o·[h_{t-1}, x_t] + b_o)    ← Output gate (what to expose as h_t)"}<br/>
+            <br/>
+            {"C_t = f_t ⊙ C_{t-1}  +  i_t ⊙ g_t   ← Update cell state"}<br/>
+            {"h_t = o_t ⊙ tanh(C_t)                ← Compute hidden state"}<br/>
+            <br/>
+            {"PyTorch stacks all 4 gates: W_ih_all ∈ ℝ^{4H×I}, W_hh_all ∈ ℝ^{4H×H}"}<br/>
+            {"Params per layer = 4×(I×H + H×H + 2H) = 4×(I+H+2)×H"}
+          </div>
+
+          <SectionHeading title="LSTM Code — Text Classification" color={color} />
+          <CodeBlock code={lstmCode} lang="python" color={color} />
+
+          <SectionHeading title="Layer-wise Parameter Breakdown" color={color} />
+          <div style={{ overflowX:"auto" }}>
+            <table style={{ width:"100%", borderCollapse:"collapse", fontSize:"0.8rem", fontFamily:"'Space Mono',monospace" }}>
+              <thead>
+                <tr style={{ borderBottom:`1px solid ${color}30` }}>
+                  {["Matrix","Weights formula","Biases","Total"].map(h => (
+                    <th key={h} style={{ textAlign:"left", padding:"8px 12px", color:color, fontSize:"0.68rem", letterSpacing:"0.06em" }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {paramFormulaData.lstm.map((r,i) => (
+                  <tr key={i} style={{ borderBottom:"1px solid rgba(255,255,255,0.04)" }}>
+                    <td style={{ padding:"8px 12px", color:"#e2e8f0" }}>{r.layer}</td>
+                    <td style={{ padding:"8px 12px", color:"#94a3b8" }}>{r.weights}</td>
+                    <td style={{ padding:"8px 12px", color:"#94a3b8" }}>{r.biases}</td>
+                    <td style={{ padding:"8px 12px", color:color, fontWeight:"700" }}>{r.total}</td>
+                  </tr>
+                ))}
+                <tr style={{ borderTop:`1px solid ${color}40`, background:`${color}08` }}>
+                  <td colSpan={3} style={{ padding:"8px 12px", color:"#e2e8f0", fontWeight:"700" }}>TOTAL (incl. Embedding + FC)</td>
+                  <td style={{ padding:"8px 12px", color:color, fontWeight:"700" }}>2,202,114</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <InfoBox title="💡 WHY 4× PARAMETERS VS RNN?" color={color}>
+            Each of the 4 gates (f, i, g, o) has its own <strong style={{color:"#e2e8f0"}}>full weight matrix</strong> — W_ih and W_hh. PyTorch concatenates all four into one large matrix for efficiency, but conceptually you have 4 independent "mini-RNNs" running in parallel at each step, whose outputs are combined through the gating mechanism. That's exactly 4× the weight count of a vanilla RNN.
+          </InfoBox>
+        </div>
+      )}
+
+      {/* ── GRU ─────────────────────────────────────────────── */}
+      {activeTab === "gru" && (
+        <div>
+          <InfoBox title="◈ GRU — LSTM's Efficient Cousin" color={color}>
+            Cho et al. (2014) simplified LSTM by merging the forget and input gates into a single <strong style={{color:"#e2e8f0"}}>update gate z_t</strong>, and eliminating the separate cell state entirely. The result: 3 gates instead of 4, no C_t, roughly <strong style={{color:color}}>25% fewer parameters</strong> than LSTM. Empirically, GRU matches LSTM on most NLP tasks and often trains faster.
+          </InfoBox>
+
+          <SectionHeading title="GRU Gate Equations" color={color} />
+          <div style={{ background:"rgba(0,0,0,0.4)", border:`1px solid ${color}30`, borderRadius:"8px", padding:"16px 18px", fontFamily:"'Space Mono',monospace", fontSize:"0.78rem", color:color, lineHeight:2 }}>
+            {"r_t = σ(W_r·[h_{t-1}, x_t])           ← Reset gate"}<br/>
+            {"z_t = σ(W_z·[h_{t-1}, x_t])           ← Update gate"}<br/>
+            {"n_t = tanh(W_n·[r_t ⊙ h_{t-1}, x_t]) ← Candidate hidden"}<br/>
+            {"h_t = (1−z_t) ⊙ h_{t-1} + z_t ⊙ n_t  ← Interpolate old & new"}<br/>
+            <br/>
+            {"Params per layer = 3×(I×H + H×H + 2H)  [3 gates, not 4]"}<br/>
+            {"PyTorch stacks:  W_ih_all ∈ ℝ^{3H×I},  W_hh_all ∈ ℝ^{3H×H}"}
+          </div>
+
+          <SectionHeading title="GRU Code — Text Classification" color={color} />
+          <CodeBlock code={gruCode} lang="python" color={color} />
+
+          <SectionHeading title="Layer-wise Parameter Breakdown" color={color} />
+          <div style={{ overflowX:"auto" }}>
+            <table style={{ width:"100%", borderCollapse:"collapse", fontSize:"0.8rem", fontFamily:"'Space Mono',monospace" }}>
+              <thead>
+                <tr style={{ borderBottom:`1px solid ${color}30` }}>
+                  {["Matrix","Weights formula","Biases","Total"].map(h => (
+                    <th key={h} style={{ textAlign:"left", padding:"8px 12px", color:color, fontSize:"0.68rem", letterSpacing:"0.06em" }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {paramFormulaData.gru.map((r,i) => (
+                  <tr key={i} style={{ borderBottom:"1px solid rgba(255,255,255,0.04)" }}>
+                    <td style={{ padding:"8px 12px", color:"#e2e8f0" }}>{r.layer}</td>
+                    <td style={{ padding:"8px 12px", color:"#94a3b8" }}>{r.weights}</td>
+                    <td style={{ padding:"8px 12px", color:"#94a3b8" }}>{r.biases}</td>
+                    <td style={{ padding:"8px 12px", color:color, fontWeight:"700" }}>{r.total}</td>
+                  </tr>
+                ))}
+                <tr style={{ borderTop:`1px solid ${color}40`, background:`${color}08` }}>
+                  <td colSpan={3} style={{ padding:"8px 12px", color:"#e2e8f0", fontWeight:"700" }}>TOTAL (incl. Embedding + FC)</td>
+                  <td style={{ padding:"8px 12px", color:color, fontWeight:"700" }}>1,971,714</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* Side-by-side comparison */}
+          <SectionHeading title="Architecture Comparison" color={color} />
+          <div style={{ overflowX:"auto" }}>
+            <table style={{ width:"100%", borderCollapse:"collapse", fontSize:"0.8rem", fontFamily:"'Space Mono',monospace" }}>
+              <thead>
+                <tr style={{ borderBottom:`1px solid ${color}30` }}>
+                  {["Property","RNN","LSTM","GRU"].map(h => (
+                    <th key={h} style={{ textAlign:"left", padding:"8px 12px", color:color, fontSize:"0.68rem", letterSpacing:"0.06em" }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["Gates",          "0",    "3 (f, i, o)",       "2 (r, z)"],
+                  ["Memory state",   "h_t",  "h_t + C_t",         "h_t only"],
+                  ["Gate multiplier","1×",   "4×",                "3×"],
+                  ["Params (hidden=256, 2L)", "~230K", "~921K", "~691K"],
+                  ["Vanishing grad", "Severe","Solved via C_t",   "Mostly solved"],
+                  ["Training speed", "Fast", "Slowest",           "Faster than LSTM"],
+                  ["Long sequences", "Poor", "Excellent",         "Very good"],
+                  ["Typical use",    "Rare", "NLP, time-series",  "NLP, time-series"],
+                ].map((row, i) => (
+                  <tr key={i} style={{ borderBottom:"1px solid rgba(255,255,255,0.04)", background: i%2===0?"rgba(255,255,255,0.01)":"transparent" }}>
+                    <td style={{ padding:"8px 12px", color:"#e2e8f0", fontWeight:"700" }}>{row[0]}</td>
+                    <td style={{ padding:"8px 12px", color:"#94a3b8" }}>{row[1]}</td>
+                    <td style={{ padding:"8px 12px", color:"#a78bfa" }}>{row[2]}</td>
+                    <td style={{ padding:"8px 12px", color:color }}>{row[3]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <InfoBox title="📌 WHEN TO USE EACH ARCHITECTURE TODAY" color={color}>
+            <strong style={{color:"#e2e8f0"}}>ANN/MLP</strong> — tabular data, simple classification, regression. Always the baseline.<br/><br/>
+            <strong style={{color:"#e2e8f0"}}>CNN</strong> — images, audio spectrograms, anything with spatial/local structure. Still dominant in vision.<br/><br/>
+            <strong style={{color:"#e2e8f0"}}>RNN</strong> — avoid in new projects. Use only if sequence length is short (&lt;20) and compute is very constrained.<br/><br/>
+            <strong style={{color:"#e2e8f0"}}>LSTM/GRU</strong> — time-series forecasting, structured sequences where Transformers are overkill (edge devices, streaming inference). GRU is preferred when parameter count matters.<br/><br/>
+            <strong style={{color:color}}>Transformers</strong> — NLP, long sequences, multimodal tasks. The default for most modern problems (see Chapter 03).
+          </InfoBox>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function IntroView() {
   const color = "#00f5c4";
 
   const MODULES = [
     { num: "01", label: "Traditional ML",       color: "#ff6b6b", desc: "Rule-based systems, statistical models, early neural nets and the limits of hand-crafted features." },
-    { num: "02", label: "Transformers",          color: "#4ecdc4", desc: "Attention is all you need — the architecture that powers every modern LLM." },
-    { num: "03", label: "Embeddings",            color: "#a78bfa", desc: "How meaning becomes geometry — semantic space, RAG, and vector search." },
-    { num: "04", label: "GPT & BERT",            color: "#fbbf24", desc: "Autoregressive generation vs masked language modeling — two approaches to language." },
-    { num: "05", label: "Fine-tuning",           color: "#f97316", desc: "LoRA, QLoRA, DPO — adapting foundation models without billion-dollar compute." },
-    { num: "06", label: "Agentic AI",            color: "#34d399", desc: "LangChain, CrewAI, AutoGen, ReAct, prompt engineering and autonomous agent systems." },
-    { num: "07", label: "LLMOps",               color: "#60a5fa", desc: "Production infrastructure — observability, evals, guardrails, cost and deployment." },
-    { num: "08", label: "Responsible AI",        color: "#f472b6", desc: "Alignment, safety, hallucination, bias, privacy and the EU AI Act." },
-    { num: "09", label: "Multimodal AI",         color: "#e879f9", desc: "Vision-language models, CLIP, cross-attention fusion and multimodal RAG." },
-    { num: "10", label: "LLaVA Deep Dive",       color: "#fb7185", desc: "The paper that democratised VLMs — GPT-4-generated data, two-stage training, LLaVA-1.5." },
-    { num: "11", label: "Mini-LLaVA / Phi-2",   color: "#38bdf8", desc: "Build a full vision-language model on one consumer GPU using Phi-2 as the LLM backbone." },
-    { num: "12", label: "Mixture of Experts",    color: "#fb923c", desc: "Sparse conditional compute — how Mixtral 8×7B achieves 47B params at 13B FLOPs." },
+    { num: "02", label: "Deep Learning",         color: "#06b6d4", desc: "ANN, CNN, RNN, LSTM & GRU — parameter counting, image dimension math, and PyTorch code." },
+    { num: "03", label: "Training Essentials",   color: "#f59e0b", desc: "Activations, gradient descent, backprop, early stopping, checkpoints, GPU & distributed training." },
+    { num: "04", label: "Transformers",          color: "#4ecdc4", desc: "Attention is all you need — the architecture that powers every modern LLM." },
+    { num: "05", label: "Embeddings",            color: "#a78bfa", desc: "How meaning becomes geometry — semantic space, RAG, and vector search." },
+    { num: "06", label: "GPT & BERT",            color: "#fbbf24", desc: "Autoregressive generation vs masked language modeling — two approaches to language." },
+    { num: "07", label: "Fine-tuning",           color: "#f97316", desc: "LoRA, QLoRA, DPO — adapting foundation models without billion-dollar compute." },
+    { num: "08", label: "Agentic AI",            color: "#34d399", desc: "LangChain, CrewAI, AutoGen, ReAct, prompt engineering and autonomous agent systems." },
+    { num: "09", label: "LLMOps",               color: "#60a5fa", desc: "Production infrastructure — observability, evals, guardrails, cost and deployment." },
+    { num: "10", label: "Responsible AI",        color: "#f472b6", desc: "Alignment, safety, hallucination, bias, privacy and the EU AI Act." },
+    { num: "11", label: "Multimodal AI",         color: "#e879f9", desc: "Vision-language models, CLIP, cross-attention fusion and multimodal RAG." },
+    { num: "12", label: "LLaVA Deep Dive",       color: "#fb7185", desc: "The paper that democratised VLMs — GPT-4-generated data, two-stage training, LLaVA-1.5." },
+    { num: "13", label: "Mini-LLaVA / Phi-2",   color: "#38bdf8", desc: "Build a full vision-language model on one consumer GPU using Phi-2 as the LLM backbone." },
+    { num: "14", label: "Mixture of Experts",    color: "#fb923c", desc: "Sparse conditional compute — how Mixtral 8×7B achieves 47B params at 13B FLOPs." },
+    { num: "15", label: "Papers",                color: "#a3e635", desc: "Foundational papers every AI practitioner should read — annotated reading list." },
+    { num: "16", label: "Knowledge Test",        color: "#e879f9", desc: "14-question assessment covering the full lecture series." },
   ];
 
   return (
@@ -4627,6 +6402,10 @@ export default function AgenticAITutorial() {
           <div style={{ padding: "32px 48px 60px", maxWidth: "860px" }}>
             {chapter.content === "intro" ? (
               <IntroView />
+            ) : chapter.content === "deeplearning" ? (
+              <DeepLearningView />
+            ) : chapter.content === "training_essentials" ? (
+              <TrainingEssentialsView />
             ) : chapter.content === "transformers" ? (
               <TransformerView />
             ) : chapter.content === "embeddings" ? (
